@@ -602,8 +602,8 @@ users:
     torgua_Owner:
         broker:   torgua
         homepage: "http://prozorro.web.bidon-tech.com:65050"
-        login:    inoy2007@gmail.com
-        password: 8twlH7FM
+        login:    zum@zum.com
+        password: q1w2e3r4t5y6
         browser:  firefox
         position: [0, 0]
         size:     [1280, 1024]
@@ -622,7 +622,15 @@ users:
         password: JPsv6T7l
         browser:  firefox
         position: [0, 0]
-        size:     [1280, 1024]   
+        size:     [1280, 1024]  
+    torgua_Provider2:
+        broker:   torgua
+        homepage: "http://prozorro.web.bidon-tech.com:65050"
+        login:    orgrimmar@rambler.ru
+        password: 65BkEmDq
+        browser:  firefox
+        position: [0, 0]
+        size:     [1280, 1024]           
     torgua_Viewer:
         broker:   torgua
         homepage: "http://prozorro.web.bidon-tech.com:65050"

@@ -72,13 +72,13 @@ ${locator.document.title}             xpath=//*[@class='doc_title']
     ...            alias=${ARGUMENTS[0]}
     Set Window Size             @{USERS.users['${ARGUMENTS[0]}'].size}
     Set Window Position     @{USERS.users['${ARGUMENTS[0]}'].position}
-    Click Element    xpath= //a[@class="log"]
-    Wait Until Page Contains Element    id=content
-    Input text    name=login    ${USERS.users['${ARGUMENTS[0]}'].login}
-    Input text    name=password    ${USERS.users['${ARGUMENTS[0]}'].password}
-    Click Element    name=send_auth
+    Click Element    //*[text()='АВТОРИЗАЦІЯ']
+    Wait Until Page Contains Element    xpath= //main[@class="_1b7uc56"]
+    Input text    xpath=//*[text()='Вкажіть E-mail, який вказали при реєстрації']/following-sibling::input[1]    ${USERS.users['${ARGUMENTS[0]}'].login}
+    Input text    xpath=//*[text()='Вкажіть пароль, отриманий по E-mail']/following-sibling::input[1]    ${USERS.users['${ARGUMENTS[0]}'].password}
+    Click Element    //*[text()='Вхід']
 
-    Run Keyword And Ignore Error        Click Element    //*[text()='Ознайомлений']
+    Run Keyword And Ignore Error        Click Element    //*[text()='Підтвердити']
 
 Створити тендер
     [Arguments]    @{ARGUMENTS}
@@ -107,7 +107,7 @@ ${locator.document.title}             xpath=//*[@class='doc_title']
     #Період поставки товару (кінцева дата)
     ${items_items_deliveryDate_startDate}=     Get From Dictionary     ${items[0].deliveryDate}                 startDate
     ${items_items_deliveryDate_startDate}=                Convert Date To String     ${items_items_deliveryDate_startDate}
-    
+
     ${items_items_deliveryDate_endDate}=     Get From Dictionary     ${items[0].deliveryDate}                 endDate
     ${items_items_deliveryDate_endDate}=                Convert Date To String     ${items_items_deliveryDate_endDate}
 
@@ -116,7 +116,7 @@ ${locator.document.title}             xpath=//*[@class='doc_title']
     ${items_deliveryAddress_region}=     Get From Dictionary     ${items[0].deliveryAddress}                 region
     ${items_deliveryAddress_locality}=     Get From Dictionary     ${items[0].deliveryAddress}                 locality
     ${items_deliveryAddress_streetAddress}=     Get From Dictionary     ${items[0].deliveryAddress}                 streetAddress
-    
+
     ${items_deliveryLocation_latitude}=     Get From Dictionary     ${items[0].deliveryLocation}                 latitude
     ${items_deliveryLocation_latitude}=         Convert To Number         ${items_deliveryLocation_latitude}
     ${items_deliveryLocation_latitude}=         Format         ${items_deliveryLocation_latitude}
@@ -183,7 +183,7 @@ ${locator.document.title}             xpath=//*[@class='doc_title']
     Input text                                                    //*[@name='tenderPeriod:startDate']     ${tenderPeriod_startDate}
     Input text                                                    //*[@name='tenderPeriod:endDate']     ${tenderPeriod_endDate}
     #EndDates
-    
+
 
     Click Element                                             //*[text()='Додати предмет закупiвлi']
 
@@ -201,7 +201,7 @@ ${locator.document.title}             xpath=//*[@class='doc_title']
 #        Input text                                                    //*[@name='dkpp_search']        ${dkpp_description}
 #        Sleep    2
 #        Click Element                                             //*[@value='${dkpp_id}']
-        
+
         #Click Element                                             //*[@class='ac_i form-control dkpp_list']
         #Input text                                                    //*[@name='items:additionalClassifications:description[0][]']        ${dkpp_description}
 
@@ -387,7 +387,7 @@ ${locator.document.title}             xpath=//*[@class='doc_title']
     ${amount}=        Get From Dictionary         ${ARGUMENTS[2].data.value}                 amount
     ${amount}=        Convert To String         ${amount}
     torgua.Пошук тендера по ідентифікатору     ${ARGUMENTS[0]}     ${ARGUMENTS[1]}
-    
+
     Click Element     xpath=//*[text()='Зареєструватися як учасник']
     Input text        xpath=//input[@placeholder="Ваша пропозицiя"]                                    ${amount}
     Click Element     xpath=//button[text()='Подати заявку']
@@ -420,7 +420,7 @@ ${locator.document.title}             xpath=//*[@class='doc_title']
     Click Element                                                 xpath=//*[text()='Обговорення ']
     Input Text   xpath=//*[@placeholder="Введіть відповідь на запитання"]          ${ARGUMENTS[2].data.answer}
     Click Element                                                 xpath=//*[@class='media well'][1]//*[text()='Відповісти']
-    
+
 Скасувати цінову пропозицію
     [Arguments]    @{ARGUMENTS}
     [Documentation]
@@ -636,12 +636,12 @@ ${locator.document.title}             xpath=//*[@class='doc_title']
     [return]    ${questionsTitle}
 
 отримати інформацію про questions description
-    
+
     ${questionsDescription}=     Отримати текст із поля і показати на сторінці         questions[0].description
     [return]    ${questionsDescription}
 
 отримати інформацію про questions date
-    
+
     ${questionsDate}=     Отримати текст із поля і показати на сторінці         questions[0].date
     ${questionsDate}=     convert_date_for_compare         ${questionsDate}
     [return]    ${questionsDate}
@@ -705,7 +705,7 @@ ${locator.document.title}             xpath=//*[@class='doc_title']
 отримати інформацію про enquiryPeriod.startDate
     ${enquiryPeriodStartDate}=     Отримати текст із поля і показати на сторінці         enquiryPeriod.startDate
     ${enquiryPeriodStartDate}=     parse_date        ${enquiryPeriodStartDate}
-    
+
     [return]    ${enquiryPeriodStartDate}
 
 отримати інформацію про tenderPeriod.startDate
@@ -713,7 +713,7 @@ ${locator.document.title}             xpath=//*[@class='doc_title']
     ${tenderPeriodStartDate}=     parse_date        ${tenderPeriodStartDate}
     [return]    ${tenderPeriodStartDate}
 
-отримати інформацію про items deliveryLocation.longitude    
+отримати інформацію про items deliveryLocation.longitude
     ${deliveryLocationLongitude}=     Отримати текст із поля і показати на сторінці         items[0].deliveryLocation.longitude
     ${deliveryLocationLongitude}=    Convert To Number   ${deliveryLocationLongitude}
     [return]    ${deliveryLocationLongitude}

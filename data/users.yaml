@@ -1,20 +1,59 @@
 users:
     Tender_Owner:
+        auth_ds:
+            tenders:  [test.quintagroup.com, test.quintagroup.com]
+            plans:    [test.quintagroup.com, test.quintagroup.com]
+            auctions: [test.quintagroup.com, bc698baa8b814908bc75405ed3d63548]
         api_key:  e9c3ccb8e8124f26941d5f9639a4ebc3
         broker:   Quinta
+        auth_edr: [test.quintagroup.com, f5111c99a97a45348d8165ba8fcf0d62]
+        browser:  phantomjs
+        position: [0, 0]
+        size:     [1400, 900]
     Tender_User:
+        auth_ds:
+            tenders:  [test.quintagroup.com, test.quintagroup.com]
+            plans:    [test.quintagroup.com, test.quintagroup.com]
+            auctions: [test.quintagroup.com, bc698baa8b814908bc75405ed3d63548]
         api_key:  e9c3ccb8e8124f26941d5f9639a4ebc3
         broker:   Quinta
+        auth_edr: [test.quintagroup.com, f5111c99a97a45348d8165ba8fcf0d62]
+        browser:  phantomjs
+        position: [0, 0]
+        size:     [1400, 900]
     Tender_User1:
+        auth_ds:
+            tenders:  [test.quintagroup.com, test.quintagroup.com]
+            plans:    [test.quintagroup.com, test.quintagroup.com]
+            auctions: [test.quintagroup.com, bc698baa8b814908bc75405ed3d63548]
         api_key:  e9c3ccb8e8124f26941d5f9639a4ebc3
         broker:   Quinta
+        auth_edr: [test.quintagroup.com, f5111c99a97a45348d8165ba8fcf0d62]
+        browser:  phantomjs
+        position: [0, 0]
+        size:     [1400, 900]
     Tender_User2:
+        auth_ds:
+            tenders:  [test.quintagroup.com, test.quintagroup.com]
+            plans:    [test.quintagroup.com, test.quintagroup.com]
+            auctions: [test.quintagroup.com, bc698baa8b814908bc75405ed3d63548]
         api_key:  e9c3ccb8e8124f26941d5f9639a4ebc3
         broker:   Quinta
+        auth_edr: [test.quintagroup.com, f5111c99a97a45348d8165ba8fcf0d62]
+        browser:  phantomjs
+        position: [0, 0]
+        size:     [1400, 900]
     Tender_Viewer:
+        auth_ds:
+            tenders:  [test.quintagroup.com, test.quintagroup.com]
+            plans:    [test.quintagroup.com, test.quintagroup.com]
+            auctions: [test.quintagroup.com, bc698baa8b814908bc75405ed3d63548]
         api_key:  ""
         broker:   Quinta
         browser:  firefox
+        auth_edr: [test.quintagroup.com, f5111c99a97a45348d8165ba8fcf0d62]
+        position: [0, 0]
+        size:     [1400, 900]
     Etender_Owner:
         broker:   Etender
         homepage: "http://bid.uat.e-tender.biz/#/"
@@ -103,6 +142,36 @@ users:
         broker:   b25h8
         homepage: "http://25h8.byustudio.in.ua"
         browser:  firefox
+        position: [0, 0]
+        size:     [1366, 800]
+    allbiz_Owner:
+        broker:   tendersallbiz
+        homepage: "https://tenders.all.biz"
+        login:    prozorroytenderowner@gmail.com
+        password: 123456
+        browser:  Firefox
+        position: [0, 0]
+        size:     [1366, 800]
+    allbiz_Provider:
+        broker:   tendersallbiz
+        homepage: "https://tenders.all.biz"
+        login:    prozorroyprovider1@gmail.com
+        password: 123456
+        browser:  Firefox
+        position: [0, 0]
+        size:     [1366, 800]
+    allbiz_Provider1:
+        broker:   tendersallbiz
+        homepage: "https://tenders.all.biz"
+        login:    prozorroyprovider2@gmail.com
+        password: 123456
+        browser:  Firefox
+        position: [0, 0]
+        size:     [1366, 800]
+    allbiz_Viewer:
+        broker:   tendersallbiz
+        homepage: "https://tenders.all.biz"
+        browser:  Firefox
         position: [0, 0]
         size:     [1366, 800]
     tenderonline_Owner:
@@ -263,6 +332,36 @@ users:
         browser:  chrome
         position: [450, 0]
         size:     [1000, 720]
+    upetem_Owner:
+        broker:   upetem
+        homepage: "https://80.92.239.165/"
+        login:    testuser_tender_owner@yopmail.com
+        password: P@ssw0rd
+        browser:  chrome
+        position: [0, 0]
+        size:     [1200, 900]
+    upetem_Provider:
+        broker:   upetem
+        homepage: "https://80.92.239.165/"
+        login:    testuser_provider@yopmail.com
+        password: P@ssw0rd
+        browser:  chrome
+        position: [0, 450]
+        size:     [1000, 800]
+    upetem_Provider1:
+        broker:   upetem
+        homepage: "https://80.92.239.165/"
+        login:    testuser_provider1@yopmail.com
+        password: P@ssw0rd
+        browser:  chrome
+        position: [450, 0]
+        size:     [1000, 800]
+    upetem_Viewer:
+        broker:   upetem
+        homepage: "https://80.92.239.165/"
+        browser:  chrome
+        position: [450, 450]
+        size:     [1000, 800]
     PublicPortal_Viewer:
         broker:   PublicPortal
         homepage: "https://qa23.prozorro.gov.ua/tender/search/"
@@ -325,34 +424,34 @@ users:
         size:     [1280, 800]
     ubiz_Owner:
         broker:   ubiz
-        homepage: "http://fgvfo.com.ua/user/purchase"
-        login:    test1@test.com
-        password: qwe123qwe
+        homepage: "http://test.ubiz.com.ua/prozorro"
+        login:    tender_owner@yopmail.com
+        password: 123456
         browser:  chrome
         position: [0, 0]
-        size:     [1000, 500]
+        size:     [1280, 1000]
     ubiz_Provider1:
         broker:   ubiz
-        homepage: "http://fgvfo.com.ua/user/purchase"
-        login:    test2@test.com
-        password: qwe123qwe
+        homepage: "http://test.ubiz.com.ua/prozorro"
+        login:    tender_provider@yopmail.com
+        password: 123456
         browser:  chrome
         position: [0, 800]
-        size:     [800, 800]
+        size:     [1280, 1000]
     ubiz_Provider2:
         broker:   ubiz
-        homepage: "http://fgvfo.com.ua/user/purchase"
-        login:    test3@test.com
-        password: qwe123qwe
+        homepage: "http://test.ubiz.com.ua/prozorro"
+        login:    tender_provider1@yopmail.com
+        password: 123456
         browser:  chrome
         position: [800, 0]
-        size:     [800, 800]
+        size:     [1280, 1000]
     ubiz_Viewer:
         broker:   ubiz
-        homepage: "http://fgvfo.com.ua/"
+        homepage: "http://test.ubiz.com.ua/prozorro"
         browser:  chrome
         position: [0, 500]
-        size:     [1000, 500]
+        size:     [1280, 1000]
     zakpro_Owner:
         broker:   zakpro
         homepage: "https://market.zakupkipro.com/"
@@ -485,7 +584,7 @@ users:
         browser:  chrome
         position: [0, 0]
         size:     [1210, 800]
-    alltenders_Provider1:
+    alltenders_Provider:
         broker:   alltenders
         homepage: 'https://prozorro.alltenders.com.ua/?mode=test&notification=off'
         login:    member_01@i.ua
@@ -493,10 +592,18 @@ users:
         browser:  chrome
         position: [0, 0]
         size:     [1210, 800]
-    alltenders_Provider2:
+    alltenders_Provider1:
         broker:   alltenders
         homepage: 'https://prozorro.alltenders.com.ua/?mode=test&notification=off'
         login:    member_02@i.ua
+        password: 111
+        browser:  chrome
+        position: [0, 0]
+        size:     [1210, 800]
+    alltenders_Provider2:
+        broker:   alltenders
+        homepage: 'https://prozorro.alltenders.com.ua/?mode=test&notification=off'
+        login:    member03@i.ua
         password: 111
         browser:  chrome
         position: [0, 0]
@@ -571,7 +678,7 @@ users:
         size:     [1000, 500]
     aladdin_Owner:
         broker:   aladdin
-        homepage: "http://test-gov.ald.in.ua"
+        homepage: "https://test-gov.ald.in.ua"
         login:    aladdin.for.test+owner@gmail.com
         password: 'zxcvbn00'
         browser:  chrome
@@ -579,7 +686,7 @@ users:
         size:     [1100, 5000]
     aladdin_Provider:
         broker:   aladdin
-        homepage: "http://test-gov.ald.in.ua"
+        homepage: "https://test-gov.ald.in.ua"
         login:    senya22051989@gmail.com
         password: '123456'
         browser:  chrome
@@ -587,7 +694,7 @@ users:
         size:     [1100, 5000]
     aladdin_Provider1:
         broker:   aladdin
-        homepage: "http://test-gov.ald.in.ua"
+        homepage: "https://test-gov.ald.in.ua"
         login:    qa2@gmail.com
         password: '158263'
         browser:  chrome
@@ -595,7 +702,7 @@ users:
         size:     [1100, 5000]
     aladdin_Viewer:
         broker:   aladdin
-        homepage: "http://test-gov.ald.in.ua"
+        homepage: "https://test-gov.ald.in.ua"
         browser:  chrome
         position: [0, 0]
         size:     [1100, 5000]

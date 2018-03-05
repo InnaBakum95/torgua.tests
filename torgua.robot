@@ -6,55 +6,55 @@ Library    torgua_service.py
 Library    DebugLibrary
 
 *** Variables ***
-${locator.tenderId}                                    xpath=//td[./text()='TenderID']//following-sibling::td[1]
-${locator.title}                                         xpath=//div[@class = 'col-md-9']//h1
-${locator.description}                             xpath=//div[@class = 'col-md-9']//h4
-${locator.auctionUrl}                                xpath=//div[@class='btn-defauld-torg tender']//a
+${locator.tenderId}                                    xpath=//*[@testval="tenderId"]
+${locator.title}                                         xpath=//*[@testval="title"]
+${locator.description}                             xpath=//*[@testval="description"]
+${locator.auctionUrl}                                xpath=//*[@testval="auctionUrl"]
 
-${locator.value.amount}                                 xpath=//span[@class = 'value_amount']
-${locator.value.currency}                             xpath=//span[@class = 'value_curency']
-${locator.value.valueAddedTaxIncluded}    xpath=//span[@class = 'value_tax']
+${locator.value.amount}                                 xpath=//*[@testval="value_amount"]
+${locator.value.currency}                             xpath=//*[@testval="value_currency"]
+${locator.value.valueAddedTaxIncluded}    xpath=//*[@testval="value_valueAddedTaxIncluded"]
 
-${locator.minimalStep.amount}                xpath=//*[@class='ms_amount']
-${locator.minimalStep.currency}                xpath=//*[@class='ms_currency']
+${locator.minimalStep.amount}                xpath=//*[@testval="minimalStep.amount"]
+${locator.minimalStep.currency}                xpath=//*[@testval="minimalStep.currency"]
 
-${locator.tenderPeriod.startDate}                xpath=//*[@id='tenderPeriod_startDate']
-${locator.enquiryPeriod.startDate}         xpath=//td[./text()='Дата початку періоду обговорень']//following-sibling::td[1]
-${locator.enquiryPeriod.endDate}         xpath=//td[./text()='Завершення періоду обговорення']//following-sibling::td[1]
-${locator.auctionPeriod.startDate}         xpath=//td[text()='Дата та час аукціону/редукціону']//following-sibling::td[1]
-${locator.auctionPeriod.endDate}         xpath=//td[./text()='Кінець аукціону']//following-sibling::td[1]
-${locator.tenderPeriod.endDate}            xpath=//td[./text()='Завершення періоду прийому пропозицій']//following-sibling::td[1]
-${locator.items[0].deliveryDate.startDate}            xpath=//td[./text()='Почткова дата поставки']//following-sibling::td[1]
-${locator.items[0].deliveryDate.endDate}            xpath=//td[./text()='Кінцева дата поставки']//following-sibling::td[1]
-${locator.items[0].description}        xpath=//table[@class = 'tender_item_table']//tbody//tr[1]//td[2]
-${locator.items[0].classification.scheme}        CPV
-${locator.items[0].classification.id}                xpath=//*[@class='c_id']
-${locator.items[0].classification.description}             xpath=//*[@class='c_desc']
-${locator.items[0].additionalClassifications[0].scheme}     xpath=//*[@class='ac_s']
-${locator.items[0].additionalClassifications[0].id}             xpath=//*[@class='ac_id']
-${locator.items[0].additionalClassifications[0].description}             xpath=//*[@class='ac_desc']
+${locator.tenderPeriod.startDate}                xpath=//*[@testval="tenderPeriod_startDate"]
+${locator.enquiryPeriod.startDate}         xpath=//*[@testval="enquiryPeriod_startDate"]
+${locator.enquiryPeriod.endDate}         xpath=//*[@testval="enquiryPeriod_endDate"]
+${locator.auctionPeriod.startDate}         xpath=//*[@testval="auctionPeriod_startDate"]
+${locator.auctionPeriod.endDate}         xpath=//*[@testval="auctionPeriod_endDate"]
+${locator.tenderPeriod.endDate}            xpath=//*[@testval="tenderPeriod_endDate"]
+${locator.items[0].deliveryDate.startDate}            xpath=//*[@testval="items_deliveryDate_startDate"][1]
+${locator.items[0].deliveryDate.endDate}            xpath=//*[@testval="items_deliveryDate_endDate"][1]
+${locator.items[0].description}        xpath=//*[@testval="items_description"][1]
+${locator.items[0].classification.scheme}        xpath=//*[@testval="items_classification_scheme"][1]
+${locator.items[0].classification.id}                xpath=//*[@testval="items_classification_id"][1]
+${locator.items[0].classification.description}             xpath=//*[@testval="items_classification_description"][1]
+${locator.items[0].additionalClassifications[0].scheme}     xpath=//*[@testval="items_additionalClassifications_scheme"][1]
+${locator.items[0].additionalClassifications[0].id}             xpath=//*[@testval="items_additionalClassifications_id"][1]
+${locator.items[0].additionalClassifications[0].description}             xpath=//*[@testval="items_additionalClassifications_description"][1]
 
-${locator.items[0].deliveryLocation.latitude}                 xpath=//*[@class='dl_latitude']
-${locator.items[0].deliveryLocation.longitude}                xpath=//*[@class='dl_longitude']
+${locator.items[0].deliveryLocation.latitude}                 xpath=//*[@testval="items_deliveryLocation_latitude"][1]
+${locator.items[0].deliveryLocation.longitude}                xpath=//*[@testval="items_deliveryLocation_longitude"][1]
 
-${locator.items[0].deliveryAddress.countryName}        xpath=//*[@class='da_countryName']
-${locator.items[0].deliveryAddress.region}                xpath=//*[@class='da_region']
-${locator.items[0].deliveryAddress.locality}                xpath=//*[@class='da_locality']
-${locator.items[0].deliveryAddress.postalCode}                xpath=//*[@class='da_postalCode']
-${locator.items[0].deliveryAddress.streetAddress}                xpath=//*[@class='da_streetAddress']
+${locator.items[0].deliveryAddress.countryName}        xpath=//*[@testval="items_deliveryAddress_countryName"][1]
+${locator.items[0].deliveryAddress.region}                xpath=//*[@testval="items_deliveryAddress_region"][1]
+${locator.items[0].deliveryAddress.locality}                xpath=//*[@testval="items_deliveryAddress_locality"][1]
+${locator.items[0].deliveryAddress.postalCode}                xpath=//*[@testval="items_deliveryAddress_postalCode"][1]
+${locator.items[0].deliveryAddress.streetAddress}                xpath=//*[@testval="items_deliveryAddress_streetAddress"][1]
 
-${locator.procuringEntity.name}                 xpath=//*[text()='ОРГАНІЗАТОР ЗАКУПІВЛІ']/following-sibling::*[1]//*[2]//*[2]
+${locator.procuringEntity.name}                 xpath=//*[@testval="procuringEntity_name"][1]
 
-${locator.items[0].quantity}                 xpath=//td[./text()='Кількість']/following-sibling::td[1]
-${locator.items[0].unit.code}                xpath=//*[@class='item_utit_code']
-${locator.items[0].unit.name}                xpath=//*[@class='item_unit_name']
-${locator.questions[0].title}                xpath = //*[@class='question-title-tender']
-${locator.questions[0].description}    xpath = //*[@class='question-description-tender']
-${locator.questions[0].date}                 xpath = //*[@class='date-comment']
-${locator.questions[0].answer}             xpath=//*[@class='well']
+${locator.items[0].quantity}                 xpath=//*[@testval="items_quantity"][1]
+${locator.items[0].unit.code}                xpath=//*[@testval="items_unit_code"][1]
+${locator.items[0].unit.name}                xpath=//*[@testval="items_unit_name"][1]
+${locator.questions[0].title}                xpath =//*[@testval="questions_title"][1]
+${locator.questions[0].description}    xpath =//*[@testval="questions_description"][1]
+${locator.questions[0].date}                 xpath = //*[@testval="questions_date"][1]
+${locator.questions[0].answer}             xpath=//*[@testval="questions_answer"][1]
 
 #${locator.awards[1].complaintPeriod.endDate}
-${locator.document.title}             xpath=//*[@class='doc_title']
+${locator.document.title}             xpath=//*[@testval="document_title"]
 *** Keywords ***
 
 Підготувати дані для оголошення тендера
@@ -73,12 +73,14 @@ ${locator.document.title}             xpath=//*[@class='doc_title']
     Set Window Size             @{USERS.users['${ARGUMENTS[0]}'].size}
     Set Window Position     @{USERS.users['${ARGUMENTS[0]}'].position}
     Click Element    //*[text()='АВТОРИЗАЦІЯ']
-    Wait Until Page Contains Element    xpath= //main[@class="_1b7uc56"]
-    Input text    xpath=//*[text()='Вкажіть E-mail, який вказали при реєстрації']/following-sibling::input[1]    ${USERS.users['${ARGUMENTS[0]}'].login}
-    Input text    xpath=//*[text()='Вкажіть пароль, отриманий по E-mail']/following-sibling::input[1]    ${USERS.users['${ARGUMENTS[0]}'].password}
-    Click Element    //*[text()='Вхід']
+    #Wait Until Page Contains Element    xpath= //main[@class="_1b7uc56"]
+    Input text    xpath=//*[@testval="login"]    ${USERS.users['${ARGUMENTS[0]}'].login}
+    Input text    xpath=//*[@testval="password"]   ${USERS.users['${ARGUMENTS[0]}'].password}
+    Click Element    //*[@testval="signin"]
+    Sleep    5
+    Wait Until Page Contains Element    xpath= //*[@testval="notifications"]    timeout=30
 
-    Run Keyword And Ignore Error        Click Element    //*[text()='Підтвердити']
+    Run Keyword And Ignore Error        Click Element    //*[@testval="accept"]
 
 Створити тендер
     [Arguments]    @{ARGUMENTS}
@@ -87,7 +89,7 @@ ${locator.document.title}             xpath=//*[@class='doc_title']
     ...            ${ARGUMENTS[1]} ==    tender_data
     ${title}=                 Get From Dictionary     ${ARGUMENTS[1].data}                             title
     ${description}=     Get From Dictionary     ${ARGUMENTS[1].data}                             description
-    ${procurementMethodType}=     Convert To String        belowThreshold
+    ${procurementMethodType}=     Convert To String        belowthreshold
 
 
     ${value_amount}=                Get From Dictionary     ${ARGUMENTS[1].data.value}                 amount
@@ -139,10 +141,6 @@ ${locator.document.title}             xpath=//*[@class='doc_title']
     #${delivery_end_date}=            convert_date_to_slash_format     ${delivery_end_date}
     ${cpv_id}=                Get From Dictionary     ${items[0].classification}                 id
     ${cpv_description}=                     Get From Dictionary     ${items[0].classification}                 description
-    #${cpv_id1}=             Replace String                ${cpv_id}     -     _
-    #${dkpp_desc}=         Get From Dictionary     ${items[0].additionalClassifications[0]}     description
-    #${dkpp_id}=             Get From Dictionary     ${items[0].additionalClassifications[0]}     id
-    #${dkpp_description}=            Get From Dictionary     ${items[0].additionalClassifications[0]}     description
 
 
 	#${enquiry_end_date}=     Get From Dictionary                 ${ARGUMENTS[1].data.enquiryPeriod}     endDate
@@ -154,90 +152,69 @@ ${locator.document.title}             xpath=//*[@class='doc_title']
 
     Selenium2Library.Switch Browser         ${ARGUMENTS[0]}
 
-    Wait Until Page Contains Element    id=content
+    #Wait Until Page Contains Element    id=content
 
     Click Element    xpath=//*[text()='Мої закупівлі']
-    Click Element    xpath=//*[text()=' Cтворити закупівлю']
+    Click Element    xpath=//*[text()='Додати закупівлю']
 
-    Click Element         //*[@name='procurementMethodType']
-    Click Element         //*[@value='${procurementMethodType}']
+    Click Element         //*[text()='Тип закупівлі']/following-sibling::div/div[1]/button
+    Click Element         //*[@testval='${procurementMethodType}']
 
-    Run Keyword And Ignore Error        Click Element    //*[@class='modal-header dialog-header-wait']//button
+    Input text                                                    //*[@testval="title"]        ${title}
+    Input text                                                    //*[@testval="description"]        ${description}
 
-    Input text                                                    //*[@name='title']        ${title}
-    Input text                                                    //textarea[@name='description']        ${description}
-
-    Input text                                                    //*[@name='value:amount']     ${value_amount}
-    Click Element                                             //*[@name='minimalStep:amount']
-
-    #${minimalStep_amount}=     Convert To String         ${minimalStep_amount}
-
-    Click Element                                             //*[@name='autocomplete']
-    Input text                                                    //*[@name='minimalStep:amount']     ${minimalStep_amount}
-    #Click Element                                             //*[@name='minimalStep:amount']
+    Input text                                                    //*[@testval="value_amount"]     ${value_amount}
+    Input text                                                    //*[@testval="minimalStep_amount"]     ${minimalStep_amount}
 
     #Dates
-    Input text                                                    //*[@name='enquiryPeriod:startDate']     ${enquiryPeriod_startDate}
-    Input text                                                    //*[@name='enquiryPeriod:endDate']     ${enquiryPeriod_endDate}
+    Input text                                                    //*[@testval="enquiryPeriod_startDate"]/descendant::input[1]     ${enquiryPeriod_startDate}
+    Input text                                                    //*[@testval="enquiryPeriod_endDate"]/descendant::input[1]     ${enquiryPeriod_endDate}
 
-    Input text                                                    //*[@name='tenderPeriod:startDate']     ${tenderPeriod_startDate}
-    Input text                                                    //*[@name='tenderPeriod:endDate']     ${tenderPeriod_endDate}
+    Input text                                                    //*[@testval="tenderPeriod_startDate"]/descendant::input[1]     ${tenderPeriod_startDate}
+    Input text                                                    //*[@testval="tenderPeriod_endDate"]/descendant::input[1]     ${tenderPeriod_endDate}
     #EndDates
 
+    Click Element                                             //*[@testval="btnadd"]
 
-    Click Element                                             //*[text()='Додати предмет закупiвлi']
-
-
-    Input text                                                    //*[@name='items:description[]']        ${items_description}
-    Click Element                                             //*[@name='items:classification:id[]']
+    Input text                                                    //*[@testval="items_description"]        ${items_description}
+    Click Element                                             //*[@testval="codeclassification"]
     #Debug
     Sleep    2
-        Input text                                                 //*[@name='cpv_search']        ${cpv_description}
+        Wait Until Page Contains Element    //*[@testval='searchclassification']    timeout=25
+        Input text                                                 //*[@testval='searchclassification']        ${cpv_description}
+        Click Element                                             //*[@testval='btnsearchclassification']
         Sleep    2
-        Click Element                                             //*[@value='${cpv_id}']
-
-    #Click Element                                             //*[@class='ac_i form-control dkpp_list']
-    #Sleep    2
-#        Input text                                                    //*[@name='dkpp_search']        ${dkpp_description}
-#        Sleep    2
-#        Click Element                                             //*[@value='${dkpp_id}']
-
-        #Click Element                                             //*[@class='ac_i form-control dkpp_list']
-        #Input text                                                    //*[@name='items:additionalClassifications:description[0][]']        ${dkpp_description}
+        Click Element                                             //*[@testval='${cpv_id}']
+        Click Element                                             //*[@testval='btncheck']
 
     # Select Код одиниці виміру (має відповідати стандарту UN/CEFACT, наприклад - KGM)
     #debug
-    Select From List  xpath=//*[@name='items:unit:code[]']  ${items_unit_code}
+    Click Element         //*[@testval="btn_unit_code"]/descendant::button[1]
+    Click Element         //*[@testval='${items_unit_code}']
     #debug
-    #Click Element                                            //*[@name='items:unit:code[]']
-    #    Sleep    2
-    #    Click Element                                            //*[@name='items:unit:code[]']/option[@value='${items_unit_code}']
-    #    Sleep    1
-    Input text                                                    //*[@name='items:quantity[]']        ${items_unit_quantity}
+    Input text                                                    //*[@testval="items_unit_quantity"]        ${items_unit_quantity}
 
-    Input text                                                    //*[@name='items:deliveryAddress:postalCode[]']        ${items_deliveryAddress_postalCode}
-    Input text                                                    //*[@name='items:deliveryAddress:countryName[]']        ${items_deliveryAddress_countryName}
-    Input text                                                    //*[@name='items:deliveryAddress:region[]']        ${items_deliveryAddress_region}
-    Input text                                                    //*[@name='items:deliveryAddress:locality[]']        ${items_deliveryAddress_locality}
-    Input text                                                    //*[@name='items:deliveryAddress:streetAddress[]']     ${items_deliveryAddress_streetAddress}
-    Input text                                                    //*[@name='items:deliveryLocation:latitude[]']        ${items_deliveryLocation_latitude}
-    Input text                                                    //*[@name='items:deliveryLocation:longitude[]']        ${items_deliveryLocation_longitude}
+    Input text                                                    //*[@testval='items_deliveryAddress_postalCode']        ${items_deliveryAddress_postalCode}
+    Input text                                                    //*[@testval='items_deliveryAddress_countryName']        ${items_deliveryAddress_countryName}
+    Input text                                                    //*[@testval='items_deliveryAddress_region']        ${items_deliveryAddress_region}
+    Input text                                                    //*[@testval='items_deliveryAddress_locality']        ${items_deliveryAddress_locality}
+    Input text                                                    //*[@testval='items_deliveryAddress_streetAddress']     ${items_deliveryAddress_streetAddress}
+    Input text                                                    //*[@testval='items_deliveryLocation_latitude']        ${items_deliveryLocation_latitude}
+    Input text                                                    //*[@testval='items_deliveryLocation_longitude']        ${items_deliveryLocation_longitude}
 
-    Input text                                                    //*[@name='items:deliveryDate:startDate[]']        ${items_items_deliveryDate_startDate}
-    Input text                                                    //*[@name='items:deliveryDate:endDate[]']        ${items_items_deliveryDate_endDate}
-    #333Run Keyword If     '${procurementMethodType}' == ''     Підготувати інформацію для belowThreshold @{ARGUMENTS}
-    #Run Keyword If     '${procurementMethodType}' == 'reporting'     Підготувати інформацію для reporting ${ARGUMENTS}
-    ##debug
-    Click Element                                             //*[text()='Зберегти']
-    Click Element                                             //*[@class='alert alert-info'][last()]//a[@data-original-title="Акцептувати чернетку"]
-    Execute Javascript                                 window.scroll(9999,9999)
-    Sleep    10
+    Input text                                                    //*[@testval="items_items_deliveryDate_startDate"]/descendant::input[1]        ${items_items_deliveryDate_startDate}
+    Input text                                                    //*[@testval="items_items_deliveryDate_endDate"]/descendant::input[1]        ${items_items_deliveryDate_endDate}
 
-    Click Element                                             //*[text()="${ARGUMENTS[1]['data']['title']}"]/../../..//*[@class='glyphicon glyphicon-ok-sign']
-    Execute Javascript                                 window.scroll(9999,9999)
+    Click Element                                             //*[@testval='btnsave']
+    Wait Until Page Contains Element    xpath= //*[@testval="btntenderkat"]    timeout=40
+    Click Element                                             //*[@testval="btntenderkat"][1]
+    Wait Until Page Contains Element    xpath= //*[@testval="btnaccept"]    timeout=30
+    Click Element                                             //*[@testval="btnaccept"]
+    #Execute Javascript                                 window.scroll(9999,9999)
     Sleep    20
 
-    ${tender_UAid}=    Get Text                     //*[text()="${ARGUMENTS[1]['data']['title']}"]/..//*[@class='label label-primary']
+    ${tender_UAid}=    Get Text                     //*[@testval="tender_UAid"][1]
+    #text()="${ARGUMENTS[1]['data']['title']}"]
     [return]    ${tender_UAid}
 
 Завантажити документ
@@ -292,30 +269,30 @@ ${locator.document.title}             xpath=//*[@class='doc_title']
     ${contactPointTelephone} =    Get From Dictionary        ${ARG.data.procuringEntity.contactPoint}                 telephone
 
     #Click Element     //*[@class = 'log']
-    Click Element     //*[@href = '#info']
-    Click Element     //*[text() = ' Редагувати дані']
+    Click Element     //*[@testval='btnUserInfo']
+    Click Element     //*[@testval='btnEditUserInfo']
 
-    Click Element                                                    //*[@name='CountryUa']
-    Click Element                                                    //*[@value='${country}']
+    #Click Element                                                    //*[@testval='listCountry']
+    #Click Element                                                    //*[@class='autotest-CountryUa' and @val='${country}']
 
     #Click Element                                                    //*[@name='RegionUa']
     #Click Element                                                    //*[@value='${region}']
 
-    Input text                                                    //*[@name='SettlementUa']        ${locality}
+    Input text                                                    //*[@testval='locality']        ${locality}
 
-    Input text                                                    //*[@name='NameUa']        ${procuringEntity_name}
+    Input text                                                    //*[@testval='procuringEntity_name']        ${procuringEntity_name}
     #Input text                                                    //*[@name='RegionUa']        ${region}
-    Input text                                                    //*[@name='AddressUa']        ${streetAddress}
-    Input text                                                    //*[@name='ZipCode']        ${postalCode}
+    Input text                                                    //*[@testval='streetAddress']        ${streetAddress}
+    Input text                                                    //*[@testval='postalCode']        ${postalCode}
 
-    Input text                                                    //*[@name='ContactPhoneNumber']        ${contactPointName}
+    #Input text                                                    //*[@name='ContactPhoneNumber']        ${contactPointName}
 
-    Input text                                                    //*[@name='ContactPhoneNumber']        ${contactPointTelephone}
-    Input text                                                    //*[@name='ContactMobilePhoneNumber']        ${contactPointTelephone}
-    Input text                                                    //*[@name='ContactFaxNumber']        ${contactPointTelephone}
+    Input text                                                    //*[@testval='contactPointTelephone']        ${contactPointTelephone}
+    Input text                                                    //*[@testval='contactPointTelephoneFax']        ${contactPointTelephone}
+    Input text                                                    //*[@testval='contactPointTelephoneMobile']        ${contactPointTelephone}
 
-    Click Element     //*[text() = 'Зберегти']
-    Click Element     //*[@class='log']
+    Click Element     //*[@testval = 'btnSave']
+    #Click Element     //*[@class='log']
 
 Внести зміни в тендер
     [Arguments]    @{ARGUMENTS}
@@ -326,15 +303,14 @@ ${locator.document.title}             xpath=//*[@class='doc_title']
 #    debug
     torgua.Пошук тендера по ідентифікатору в кабінеті     ${ARGUMENTS[0]}     ${ARGUMENTS[1]}
     ${value}=  Run keyword if  '${ARGUMENTS[2]}' == 'tenderPeriod.endDate'  Convert Date To String     ${ARGUMENTS[3]}   ELSE   CONVERT TO STRING    ${ARGUMENTS[3]}
-    ${prop}=  Evaluate  '${ARGUMENTS[2]}'.replace(".", ":")
-    Input text                                                //textarea[@name='${prop}'] | //input[@name='${prop}']     ${value}
-    Click Element                                             //*[text()='Опублікувати']
-    Capture Page Screenshot
-    Click Element                                             //*[text()='Мої закупівлі']
-    Execute Javascript                                 window.scroll(9999,9999)
-    Sleep  10
-    Click Element                                             //*[@class='panel panel-default'][1]//*[@class='glyphicon glyphicon-ok-sign']
-    Sleep  10
+    ${prop}=  Evaluate  '${ARGUMENTS[2]}'.replace(".", "_")
+    Input text                                                //*[@testval='${prop}']     ${value}
+    Click Element                                             //*[@testval='btnsave']
+    Wait Until Page Contains Element    xpath= //*[@testval="btntenderkat"]    timeout=40
+    Click Element                                             //*[@testval="btntenderkat"][1]
+    Wait Until Page Contains Element    xpath= //*[@testval="btnaccept"]    timeout=30
+    Click Element                                             //*[@testval="btnaccept"]
+    Sleep    20
     torgua.Пошук тендера по ідентифікатору     ${ARGUMENTS[0]}     ${ARGUMENTS[1]}
     Sleep  5
 
@@ -470,26 +446,32 @@ ${locator.document.title}             xpath=//*[@class='doc_title']
     ...            ${ARGUMENTS[1]} ==    tenderId
         Switch browser     ${ARGUMENTS[0]}
     Go To    ${USERS.users['${ARGUMENTS[0]}'].homepage}
-    Wait Until Page Contains Element    id=content
-    Click Element    xpath=.//*[@class='dropdown-toggle']
-    Click Element    xpath=//a[text()='Закупівлі']
-    Input text    name=q    ${ARGUMENTS[1]}
-    Click Element    xpath=//button[contains(text(), 'Пошук')]
-    Click Element    xpath=.//*[@class='row lots']/a
-    Wait Until Page Contains Element    id=content
+    Wait Until Page Contains Element    xpath=//*[@class='_evrc37']    timeout=25
+    Click Element    xpath=//*[@testval='nav_procurements']
+    Click Element    xpath=//*[@testval='nav_procurement']
+    Input text    //*[@testval='searchtender']    ${ARGUMENTS[1]}
+    Press Key    //*[@testval='searchtender']    \\13
+    #Click Element    xpath=//*[@testval='btnsearchtender']
+    Click Element    xpath=//*[@testval='tenderinfo']
+    #Wait Until Page Contains Element    id=content
 
 Пошук тендера по ідентифікатору в кабінеті
     [Arguments]    @{ARGUMENTS}
         [Documentation]
     ...            ${ARGUMENTS[0]} ==    username
     ...            ${ARGUMENTS[1]} ==    tenderId
-    Wait Until Page Contains Element    id=content
-    Click Element                                             //*[@class='log']
-    Click Element                                             //*[text()='Мої закупівлі']
-    Click Element                                             //*[@id="tendertab"]
-    Execute Javascript                                 window.scroll(9999,9999)
-    Sleep  3
-    Click Element                                             //*[@id='tendersList']//*[text()='${ARGUMENTS[1]}']//ancestor::*[3]//*[@class='glyphicon glyphicon-pencil']
+    Go To    ${USERS.users['${ARGUMENTS[0]}'].homepage}
+    Click Element                                             //*[@testval='btnProfile']
+    Wait Until Page Contains Element    xpath=//*[@testval='myTenders']    timeout=25
+    Click Element                                             //*[@testval='myTenders']
+    Input text    //*[@testval='searchTender']    ${ARGUMENTS[1]}
+    Press Key    //*[@testval='searchTender']    \\13
+    Wait Until Page Contains Element    xpath=//*[@text='${ARGUMENTS[1]}']    timeout=25
+    Click Element                                             //*[@testval="btntenderkat"][1]
+    Wait Until Page Contains Element    xpath= //*[@testval="btnEditTender"]    timeout=30
+    Click Element                                             //*[@testval="btnEditTender"]
+    Sleep    10
+
 
 Отримати інформацію із тендера
     [Arguments]  @{ARGUMENTS}

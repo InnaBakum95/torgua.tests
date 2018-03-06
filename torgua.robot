@@ -78,7 +78,7 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     Input text    xpath=//*[@testval="password"]   ${USERS.users['${ARGUMENTS[0]}'].password}
     Click Element    //*[@testval="signin"]
     Sleep    5
-    Wait Until Page Contains Element    xpath= //*[@testval="notifications"]    timeout=30
+    Wait Until Page Contains Element    xpath= //*[@testval="notifications"]    timeout=50
 
     Run Keyword And Ignore Error        Click Element    //*[@testval="accept"]
 
@@ -154,7 +154,8 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
 
     #Wait Until Page Contains Element    id=content
 
-    Click Element    xpath=//*[text()='Мої закупівлі']
+    Sleep    8
+    Click Element    xpath=//*[@testval='myTenders']
     Click Element    xpath=//*[text()='Додати закупівлю']
 
     Click Element         //*[text()='Тип закупівлі']/following-sibling::div/div[1]/button
@@ -211,7 +212,7 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     Wait Until Page Contains Element    xpath= //*[@testval="btnaccept"]    timeout=30
     Click Element                                             //*[@testval="btnaccept"]
     #Execute Javascript                                 window.scroll(9999,9999)
-    Sleep    20
+    Sleep    30
 
     ${tender_UAid}=    Get Text                     //*[@testval="tender_UAid"][1]
     #text()="${ARGUMENTS[1]['data']['title']}"]
@@ -224,28 +225,24 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     ...            ${ARGUMENTS[1]} ==    ${filepath}
     ...            ${ARGUMENTS[2]} ==    ${TENDER_UAID}
     Selenium2Library.Switch Browser        ${ARGUMENTS[0]}
-    Wait Until Page Contains Element    id=content
+    torgua.Пошук тендера по ідентифікатору в кабінеті     ${ARGUMENTS[0]}     ${ARGUMENTS[2]}
     #debug
-    Click Element                                             //*[@class="glyphicon glyphicon-user"]
-    Click Element                                             //*[text()='Мої закупівлі']
-    Execute Javascript                                 window.scroll(9999,9999)
-    Sleep    3
-    Click Element                                             //*[text()='${ARGUMENTS[2]}']/../../..//*[@class='col-lg-4 text-right']//a[@data-original-title='Редагувати']
-    Click Element                                             //*[text()='Додати файл']
+    Click Element                                             //*[@testval='btnAddDocument']
     Завантажити документ до тендеру     ${ARGUMENTS[1]}
-    Input Text                                                    //*[@name='document:description[]']         Test text
+    Input Text                                                    //*[@testval='docdescription']         Test text
     #debug
-    Click Element                                             //*[text()='Опублікувати']
-    Execute Javascript                                 window.scroll(9999,9999)
-    Sleep    5
-    Click Element                                             //*[@class='panel panel-default'][1]//*[@class='glyphicon glyphicon-ok-sign']
-    Sleep  10
+    Click Element                                             //*[@testval='btnsave']
+    Wait Until Page Contains Element    xpath= //*[@testval="btntenderkat"]    timeout=40
+    Click Element                                             //*[@testval="btntenderkat"][1]
+    Wait Until Page Contains Element    xpath= //*[@testval="btnaccept"]    timeout=30
+    Click Element                                             //*[@testval="btnaccept"]
+    Sleep  20
     torgua.Пошук тендера по ідентифікатору     ${ARGUMENTS[0]}     ${ARGUMENTS[2]}
     Sleep  5
 
 Завантажити документ до тендеру
     [Arguments]     ${file}
-    Choose File             //*[@name='document:files[]']         ${file}
+    Choose File             //*[@testval='btnAddFile']         ${file}
 
 Додати документ до тендеру
     [Arguments]     ${file}
@@ -270,6 +267,7 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
 
     #Click Element     //*[@class = 'log']
     Click Element     //*[@testval='btnUserInfo']
+    Sleep    8
     Click Element     //*[@testval='btnEditUserInfo']
 
     #Click Element                                                    //*[@testval='listCountry']
@@ -304,7 +302,8 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     torgua.Пошук тендера по ідентифікатору в кабінеті     ${ARGUMENTS[0]}     ${ARGUMENTS[1]}
     ${value}=  Run keyword if  '${ARGUMENTS[2]}' == 'tenderPeriod.endDate'  Convert Date To String     ${ARGUMENTS[3]}   ELSE   CONVERT TO STRING    ${ARGUMENTS[3]}
     ${prop}=  Evaluate  '${ARGUMENTS[2]}'.replace(".", "_")
-    Input text                                                //*[@testval='${prop}']     ${value}
+
+    Run keyword if  '${ARGUMENTS[2]}' == 'tenderPeriod.endDate'  Input text                                                    //*[@testval="tenderPeriod_endDate"]/descendant::input[1]     ${tenderPeriod_endDate}   ELSE   Input text                                                //*[@testval='${prop}']     ${value}
     Click Element                                             //*[@testval='btnsave']
     Wait Until Page Contains Element    xpath= //*[@testval="btntenderkat"]    timeout=40
     Click Element                                             //*[@testval="btntenderkat"][1]
@@ -393,9 +392,9 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
 Відповісти на запитання
     [Arguments]    @{ARGUMENTS}
     torgua.Пошук тендера по ідентифікатору        ${ARGUMENTS[0]}     ${ARGUMENTS[1]}
-    Click Element                                                 xpath=//*[text()='Обговорення ']
-    Input Text   xpath=//*[@placeholder="Введіть відповідь на запитання"]          ${ARGUMENTS[2].data.answer}
-    Click Element                                                 xpath=//*[@class='media well'][1]//*[text()='Відповісти']
+    Click Element                                                 xpath=//*[@testval='Questions']
+    Input Text   xpath=//*[@testval="textAnswer"]          ${ARGUMENTS[2].data.answer}
+    Click Element                                                 xpath=//*[@testval='btnAnswer']
 
 Скасувати цінову пропозицію
     [Arguments]    @{ARGUMENTS}
@@ -446,14 +445,16 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     ...            ${ARGUMENTS[1]} ==    tenderId
         Switch browser     ${ARGUMENTS[0]}
     Go To    ${USERS.users['${ARGUMENTS[0]}'].homepage}
-    Wait Until Page Contains Element    xpath=//*[@class='_evrc37']    timeout=25
+    Wait Until Page Contains Element    xpath=//*[@class='_evrc37']    timeout=30
     Click Element    xpath=//*[@testval='nav_procurements']
     Click Element    xpath=//*[@testval='nav_procurement']
     Input text    //*[@testval='searchtender']    ${ARGUMENTS[1]}
     Press Key    //*[@testval='searchtender']    \\13
+    Sleep    5
     #Click Element    xpath=//*[@testval='btnsearchtender']
-    Click Element    xpath=//*[@testval='tenderinfo']
+    Click Element    xpath=//*[@testval='tenderinfo'][1]
     #Wait Until Page Contains Element    id=content
+    Sleep    5
 
 Пошук тендера по ідентифікатору в кабінеті
     [Arguments]    @{ARGUMENTS}
@@ -461,12 +462,13 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     ...            ${ARGUMENTS[0]} ==    username
     ...            ${ARGUMENTS[1]} ==    tenderId
     Go To    ${USERS.users['${ARGUMENTS[0]}'].homepage}
+    Wait Until Page Contains Element    xpath=//*[@testval='btnProfile']    timeout=40
     Click Element                                             //*[@testval='btnProfile']
-    Wait Until Page Contains Element    xpath=//*[@testval='myTenders']    timeout=25
+    Wait Until Page Contains Element    xpath=//*[@testval='myTenders']    timeout=30
     Click Element                                             //*[@testval='myTenders']
     Input text    //*[@testval='searchTender']    ${ARGUMENTS[1]}
     Press Key    //*[@testval='searchTender']    \\13
-    Wait Until Page Contains Element    xpath=//*[@text='${ARGUMENTS[1]}']    timeout=25
+    Wait Until Page Contains Element    xpath=//*[@testval="btntenderkat"]    timeout=40
     Click Element                                             //*[@testval="btntenderkat"][1]
     Wait Until Page Contains Element    xpath= //*[@testval="btnEditTender"]    timeout=30
     Click Element                                             //*[@testval="btnEditTender"]
@@ -488,7 +490,7 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     [Arguments]  @{ARGUMENTS}
     #debug
     torgua.Пошук тендера по ідентифікатору        ${ARGUMENTS[0]}     ${ARGUMENTS[1]}
-    Click Element                                             //*[@href='#questions']
+    Click Element                                             //*[@testval='Questions']
     ${return_value}=  run keyword  Отримати інформацію про questions ${ARGUMENTS[3]}
     [return]  ${return_value}
 Отримати інформацію із документа
@@ -629,7 +631,7 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     [return]    ${questionsDate}
 
 отримати інформацію про questions answer
-    Click Element                                             xpath=//*[text() = 'Обговорення ']
+    Click Element                                             xpath=//*[@testval='Questions']
     ${questionsAnswer}=     Отримати текст із поля і показати на сторінці         questions[0].answer
     [return]    ${questionsAnswer}
 

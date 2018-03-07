@@ -237,7 +237,7 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     Click Element                                             //*[@testval="btntenderkat"][1]
     Wait Until Page Contains Element    xpath= //*[@testval="btnaccept"]    timeout=30
     Click Element                                             //*[@testval="btnaccept"]
-    Sleep  20
+    Sleep  30
     torgua.Пошук тендера по ідентифікатору     ${ARGUMENTS[0]}     ${ARGUMENTS[2]}
     Sleep  5
 
@@ -706,6 +706,16 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     [return]    ${deliveryLocationLongitude}
 
 отримати інформацію про items deliveryLocation.latitude
+    ${deliveryLocationLatitude}=     Отримати текст із поля і показати на сторінці         items[0].deliveryLocation.latitude
+    ${deliveryLocationLatitude}=    Convert To Number   ${deliveryLocationLatitude}
+    [return]    ${deliveryLocationLatitude}
+
+отримати інформацію про items[0].deliveryLocation.longitude
+    ${deliveryLocationLongitude}=     Отримати текст із поля і показати на сторінці         items[0].deliveryLocation.longitude
+    ${deliveryLocationLongitude}=    Convert To Number   ${deliveryLocationLongitude}
+    [return]    ${deliveryLocationLongitude}
+
+отримати інформацію про items[0].deliveryLocation.latitude
     ${deliveryLocationLatitude}=     Отримати текст із поля і показати на сторінці         items[0].deliveryLocation.latitude
     ${deliveryLocationLatitude}=    Convert To Number   ${deliveryLocationLatitude}
     [return]    ${deliveryLocationLatitude}

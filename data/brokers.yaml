@@ -464,7 +464,7 @@ torgua:
             tender:  [0, 20]
         openua:
             accelerator: 720
-            tender:  [0, 30]
+            tender:  [0, 20]
     keywords_file: torgua
     roles:
         tender_owner:   torgua_Owner
@@ -472,4 +472,4 @@ torgua:
         provider1:      torgua_Provider1
         provider2:      torgua_Provider2
         viewer:         torgua_Viewer
-    timeout_on_wait: 300
+    timeout_on_wait: 200

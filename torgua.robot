@@ -78,9 +78,9 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     Input text    xpath=//*[@testval="password"]   ${USERS.users['${ARGUMENTS[0]}'].password}
     Click Element    //*[@testval="signin"]
     Sleep    5
-    Run Keyword If  '${ARGUMENTS[0]}' != 'torgua_Viewer'  Wait Until Page Contains Element    xpath= //*[@testval="notifications"]    timeout=50
+    Run Keyword If  '${ARGUMENTS[0]}' == 'torgua_Owner'  Wait Until Page Contains Element    xpath= //*[@testval="notifications"]    timeout=50
 
-    Run Keyword If  '${ARGUMENTS[0]}' != 'torgua_Viewer'  Run Keyword And Ignore Error        Click Element    //*[@testval="accept"]
+    Run Keyword If  '${ARGUMENTS[0]}' == 'torgua_Owner'  Run Keyword And Ignore Error        Click Element    //*[@testval="accept"]
 
 Створити тендер
     [Arguments]    @{ARGUMENTS}
@@ -347,10 +347,14 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     Selenium2Library.Switch Browser        ${ARGUMENTS[0]}
     torgua.Пошук тендера по ідентифікатору        ${ARGUMENTS[0]}     ${ARGUMENTS[1]}
     Sleep   10
-    Click Element                                             xpath=//*[text()='Обговорення ']
-    Input text                                                    xpath=//*[@name='title']                                 ${title}
-    Input text                                                    xpath=//textarea[@name='description']                                 ${description}
-    Click Element                                             xpath=//*[@name='add-question']
+    Wait Until Page Contains Element    xpath=//*[@testval='btnQuestions']    timeout=30
+    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=30
+    Click Element                                                 xpath=//*[@testval='btnQuestions']
+    Wait Until Page Contains Element    xpath=//*[@testval='questionTitle'][1]    timeout=30
+    Input text                                                    xpath=//*[@testval='questionTitle']                                 ${title}
+    Input text                                                    xpath=//*[@testval='questionText']                                 ${description}
+    Click Element                                             xpath=//*[@testval='btnAddQuestion']
+    Sleep  10
     torgua.Пошук тендера по ідентифікатору        ${ARGUMENTS[0]}     ${ARGUMENTS[1]}
 
 Подати цінову пропозицію
@@ -363,14 +367,19 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     ${amount}=        Get From Dictionary         ${ARGUMENTS[2].data.value}                 amount
     ${amount}=        Convert To String         ${amount}
     torgua.Пошук тендера по ідентифікатору     ${ARGUMENTS[0]}     ${ARGUMENTS[1]}
-
-    Click Element     xpath=//*[text()='Зареєструватися як учасник']
-    Input text        xpath=//input[@placeholder="Ваша пропозицiя"]                                    ${amount}
-    Click Element     xpath=//button[text()='Подати заявку']
-    Click Element     xpath=(//*[text()='Активувати'])[1]
     Sleep  10
-    torgua.Пошук тендера по ідентифікатору        ${ARGUMENTS[0]}     ${ARGUMENTS[1]}
+    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=30
+    Click Element     xpath=//*[@testval='btnProvider']
     Sleep  10
+    Input text        xpath=//*[@testval='proposition']                                    ${amount}
+    Click Element     xpath=//*[@testval='btnApply']
+    Wait Until Page Contains Element    xpath=//*[@testval='btnBidKat']    timeout=30
+    Click Element     xpath=//*[@testval='btnBidKat'][1]
+    Sleep  5
+    Click Element     xpath=//*[@testval='btnActivate'][1]
+    Sleep  20
+    #torgua.Пошук тендера по ідентифікатору        ${ARGUMENTS[0]}     ${ARGUMENTS[1]}
+    #Sleep  10
 
 Змінити цінову пропозицію
     [Arguments]    @{ARGUMENTS}
@@ -381,19 +390,31 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     ...            ${ARGUMENTS[3]} ==    ${fieldvalue}
     #debug
     #torgua.Пошук тендера по ідентифікатору     ${ARGUMENTS[0]}     ${ARGUMENTS[1]}
-    Click Element     //*[@class='log']
-    Click Element     //*[text()='Мої пропозиції']
-    Click Element     xpath=(//*[text()='Редагувати'])[1]
-    ${ARGUMENTS[3]}=  Convert to String  ${ARGUMENTS[3]}
-    Input text        xpath=//input[@placeholder="Ваша пропозицiя"]                ${ARGUMENTS[3]}
-    Click Element     //*[text()='Зберегти']
+    Wait Until Page Contains Element    xpath=//*[@testval='btnProfile']    timeout=40
+    Click Element                                             //*[@testval='btnProfile']
+    Wait Until Page Contains Element    xpath=//*[@testval='btnMyBids']    timeout=30
+    Click Element                                             //*[@testval='btnMyBids']
+    Sleep  10
+    Click Element                                             //*[@testval='btnBidKat'][1]
     Sleep  5
-    torgua.Пошук тендера по ідентифікатору        ${ARGUMENTS[0]}     ${ARGUMENTS[1]}
+    Click Element     xpath=//*[@testval='btnEditBid'][1]
+    ${ARGUMENTS[3]}=  Convert to String  ${ARGUMENTS[3]}
+    Sleep  10
+    Input text        xpath=//*[@testval='proposition']                ${ARGUMENTS[3]}
+    Click Element     xpath=//*[@testval='btnApply']
+    Sleep  5
+    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=30
+    Wait Until Page Contains Element    xpath=//*[@testval='btnBidKat']    timeout=30
+    Click Element     xpath=//*[@testval='btnBidKat'][1]
+    Sleep  5
+    #Click Element     xpath=//*[@testval='btnActivate'][1]
+    #Sleep  20
 
 Відповісти на запитання
     [Arguments]    @{ARGUMENTS}
     torgua.Пошук тендера по ідентифікатору        ${ARGUMENTS[0]}     ${ARGUMENTS[1]}
     Click Element                                                 xpath=//*[@testval='btnQuestions']
+    Wait Until Page Contains Element    xpath=//*[@testval='textAnswer'][1]    timeout=30
     Input Text   xpath=//*[@testval="textAnswer"]          ${ARGUMENTS[2].data.answer}
     Click Element                                                 xpath=//*[@testval='btnAnswer']
 
@@ -411,17 +432,27 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
         ...        ${ARGUMENTS[1]} ==    file
         ...        ${ARGUMENTS[2]} ==    tenderId
     Selenium2Library.Switch Browser         ${ARGUMENTS[0]}
-    Click Element     //*[@class='log']
-    Click Element     //*[text()='Мої пропозиції']
-    Click Element     xpath=(//*[text()='Редагувати'])[1]
-    Click Element     //*[text()='Додати документ']
-    Choose File                                 //*[@name='documents:file[]']                    ${ARGUMENTS[1]}
-    Click Element     //*[text()='Зберегти']
-    Sleep  5
-    torgua.Пошук тендера по ідентифікатору     ${ARGUMENTS[0]}     ${ARGUMENTS[2]}
-    Sleep  5
-    #Click Element     xpath=(//*[text()='Активувати'])[1]
-    #sleep    10
+    Wait Until Page Contains Element    xpath=//*[@testval='btnProfile']    timeout=40
+    Click Element                                             //*[@testval='btnProfile']
+    Wait Until Page Contains Element    xpath=//*[@testval='btnMyBids']    timeout=30
+    Click Element                                             //*[@testval='btnMyBids']
+    Sleep  10
+    Click Element                                             //*[@testval='btnBidKat'][1]
+    Sleep  10
+    Click Element     xpath=//*[@testval='btnEditBid'][1]
+    Sleep  10
+    Click Element     //*[@testval='btnAddFile']
+    Sleep  10
+    Choose File                                 //*[@testval='btnChooseFile']                    ${ARGUMENTS[1]}
+    Sleep  10
+    Click Element     xpath=//*[@testval='btnApply']
+    Sleep  10
+    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=30
+    Wait Until Page Contains Element    xpath=//*[@testval='btnBidKat']    timeout=30
+    Click Element     xpath=//*[@testval='btnBidKat'][1]
+    #Sleep  10
+    #Click Element     xpath=//*[@testval='btnActivate'][1]
+    #Sleep  20
 
 Змінити документ в ставці
     [Arguments]    @{ARGUMENTS}
@@ -431,12 +462,27 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
         ...        ${ARGUMENTS[2]} ==    amount
         ...        ${ARGUMENTS[3]} ==    amount.value
     Selenium2Library.Switch Browser         ${ARGUMENTS[0]}
-    Click Element     //*[@class='log']
-    Click Element     //*[text()='Мої пропозиції']
-    Click Element     xpath=(//*[text()='Редагувати'])[1]
-    Choose File                                 //*[@name='exi_documents:file[]']                    ${ARGUMENTS[2]}
-    Click Element     //*[text()='Зберегти']
-    #Click Element     xpath=(//*[text()='Активувати'])[1]
+    Wait Until Page Contains Element    xpath=//*[@testval='btnProfile']    timeout=40
+    Click Element                                             //*[@testval='btnProfile']
+    Wait Until Page Contains Element    xpath=//*[@testval='btnMyBids']    timeout=30
+    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=30
+    Click Element                                             //*[@testval='btnMyBids']
+    Sleep  10
+    Click Element                                             //*[@testval='btnBidKat'][1]
+    Sleep  10
+    Click Element     xpath=//*[@testval='btnEditBid'][1]
+    Sleep  10
+    Click Element     xpath=//*[@testval='btnAddFile']
+    Sleep  10
+    Choose File                                 //*[@testval='btnChooseFile']                    ${ARGUMENTS[2]}
+    Click Element     //*[@testval='btnApply']
+    Sleep  10
+    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=30
+    Wait Until Page Contains Element    xpath=//*[@testval='btnBidKat']    timeout=30
+    Click Element     xpath=//*[@testval='btnBidKat'][1]
+    Sleep  10
+    #Click Element     xpath=//*[@testval='btnActivate'][1]
+    #Sleep  20
 
 
 Пошук тендера по ідентифікатору
@@ -446,14 +492,17 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     ...            ${ARGUMENTS[1]} ==    tenderId
         Switch browser     ${ARGUMENTS[0]}
     Go To    ${USERS.users['${ARGUMENTS[0]}'].homepage}
-    Wait Until Page Contains Element    xpath=//*[@class='_evrc37']    timeout=30
+    Wait Until Page Contains Element    xpath=//*[@testval='nav_procurements']    timeout=30
+    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=30
     Click Element    xpath=//*[@testval='nav_procurements']
     Sleep    20
     Click Element    xpath=//*[@testval='nav_procurement']
+    Sleep    10
     Input text    //*[@testval='searchtender']    ${ARGUMENTS[1]}
     Press Key    //*[@testval='searchtender']    \\13
     Sleep    10
     Wait Until Page Contains Element    xpath=//*[@testval='tenderinfo'][1]    timeout=30
+    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=30
     Click Element    xpath=//*[@testval='tenderinfo'][1]
     #Wait Until Page Contains Element    id=content
     Sleep    5
@@ -493,7 +542,9 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     [Arguments]  @{ARGUMENTS}
     #debug
     torgua.Пошук тендера по ідентифікатору        ${ARGUMENTS[0]}     ${ARGUMENTS[1]}
+    Wait Until Page Contains Element    xpath= //*[@testval="btnQuestions"]    timeout=30
     Click Element                                             //*[@testval='btnQuestions']
+    Sleep    5
     ${return_value}=  run keyword  Отримати інформацію про questions ${ARGUMENTS[3]}
     [return]  ${return_value}
 Отримати інформацію із документа
@@ -504,7 +555,9 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
 
 Отримати інформацію із пропозиції
     [Arguments]  @{ARGUMENTS}
-    ${return_value}=  run keyword  Отримати Інформацію Про ${ARGUMENTS[2]}
+    ${return_value}=  Run keyword if  '${ARGUMENTS[2]}' == 'value.amount'  отримати інформацію із пропозиції про value.amount   ELSE   Отримати Інформацію Про ${ARGUMENTS[2]}
+
+    #${return_value}=  run keyword  Отримати Інформацію Про ${ARGUMENTS[2]}
     [return]  ${return_value}
 Отримати документ
     [Arguments]  @{ARGUMENTS}
@@ -516,19 +569,19 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     [Arguments]    ${user}    ${tenderId}
     #${AuctionUrl}=     torgua.Отримати посилання на аукціон    ${user}    ${tenderId}
     torgua.Пошук тендера по ідентифікатору     ${user}     ${tenderId}
-    ${AuctionUrl}=     Get Element Attribute         xpath=(//*[text()='Аукціон'])@href
+    ${AuctionUrl}=     Get Element Attribute         xpath=(//*[@testval='auctionUrl']/descendant::a[1])@href
     [return]    ${AuctionUrl}
 
 Отримати посилання на аукціон для учасника
     [Arguments]    @{ARGUMENTS}
     torgua.Пошук тендера по ідентифікатору     ${ARGUMENTS[0]}     ${ARGUMENTS[1]}
-    ${AuctionUrl}=     Get Element Attribute    xpath=(//*[text()='Аукціон для учасника'])@href
+    ${AuctionUrl}=     Get Element Attribute    xpath=(//*[@testval='auctionUrl']/descendant::a[1])@href
     [return]    ${AuctionUrl}
 
 Отримати посилання на аукціон
     [Arguments]    ${user}    ${tenderId}
     torgua.Пошук тендера по ідентифікатору ${user} ${tenderId}
-    ${AuctionUrl}=     Get Element Attribute         xpath=(//*[text()='Аукціон'])@href
+    ${AuctionUrl}=     Get Element Attribute         xpath=(//*[@testval='auctionUrl']/descendant::a[1])@href
     [return]    ${AuctionUrl}
 
 Отримати Інформацію Про document title
@@ -542,6 +595,7 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
 
     Selenium2Library.Switch Browser        ${ARGUMENTS[0]}
     torgua.Пошук тендера по ідентифікатору        ${ARGUMENTS[0]}     ${ARGUMENTS[1]}
+    Sleep  10
     Reload Page
 
 Отримати текст із поля і показати на сторінці
@@ -567,8 +621,24 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     [return]    ${tenderId}
 
 отримати інформацію про value.amount
-    #debug
+    #Click Element                                             //*[@testval='btnBidKat'][1]
+    #Sleep  5
+    #Click Element     xpath=//*[@testval='btnEditBid'][1]
     ${valueAmount}=     Отримати текст із поля і показати на сторінці     value.amount
+    #debug
+    ${valueAmount}=      Convert To Number     ${valueAmount.split(' ')[0]}
+    [return]    ${valueAmount}
+
+отримати інформацію із пропозиції про value.amount
+    Wait Until Page Contains Element    xpath=//*[@testval='btnProfile']    timeout=40
+    Click Element                                             //*[@testval='btnProfile']
+    Wait Until Page Contains Element    xpath=//*[@testval='btnMyBids']    timeout=30
+    Click Element                                             //*[@testval='btnMyBids']
+    Sleep  10
+    Click Element                                             //*[@testval='btnBidKat'][1]
+    Sleep  10
+    Click Element     xpath=//*[@testval='btnEditBid'][1]
+    ${valueAmount}=     Get Element Attribute         xpath=//*[@testval='proposition']@value
     #debug
     ${valueAmount}=      Convert To Number     ${valueAmount.split(' ')[0]}
     [return]    ${valueAmount}
@@ -622,8 +692,11 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     ${questionsTitle}=     Отримати текст із поля і показати на сторінці         questions[0].title
     [return]    ${questionsTitle}
 
-отримати інформацію про questions description
+Отримати інформацію про questions[0].description
+    ${questionsDescription}=     Отримати текст із поля і показати на сторінці         questions[0].description
+    [return]    ${questionsDescription}
 
+отримати інформацію про questions description
     ${questionsDescription}=     Отримати текст із поля і показати на сторінці         questions[0].description
     [return]    ${questionsDescription}
 
@@ -711,12 +784,12 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     [return]    ${deliveryLocationLatitude}
 
 отримати інформацію про items[0].deliveryLocation.longitude
-    ${deliveryLocationLongitude}=     Отримати текст із поля і показати на сторінці         items[0].deliveryLocation.longitude
+    ${deliveryLocationLongitude}=     Get Element Attribute         ${locator.items[0].deliveryLocation.longitude}@value
     ${deliveryLocationLongitude}=    Convert To Number   ${deliveryLocationLongitude}
     [return]    ${deliveryLocationLongitude}
 
 отримати інформацію про items[0].deliveryLocation.latitude
-    ${deliveryLocationLatitude}=     Отримати текст із поля і показати на сторінці         items[0].deliveryLocation.latitude
+    ${deliveryLocationLatitude}=     Get Element Attribute         ${locator.items[0].deliveryLocation.latitude}@value
     ${deliveryLocationLatitude}=    Convert To Number   ${deliveryLocationLatitude}
     [return]    ${deliveryLocationLatitude}
 
@@ -739,5 +812,5 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
 
 Отримати Інформацію Про Status
     #${status}=     Get Element Attribute     //*[@name='tender-status']@value
-    ${status}=     Get Element Attribute         xpath=(//*[@name='tender-status'])@value
+    ${status}=     Get Element Attribute         xpath=(//*[@testval='tender-status'])@value
     [return]    ${status}

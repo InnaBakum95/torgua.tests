@@ -78,7 +78,7 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     Input text    xpath=//*[@testval="password"]   ${USERS.users['${ARGUMENTS[0]}'].password}
     Click Element    //*[@testval="signin"]
     Sleep    5
-    Run Keyword If  '${ARGUMENTS[0]}' == 'torgua_Owner'  Wait Until Page Contains Element    xpath= //*[@testval="notifications"]    timeout=60
+    Run Keyword If  '${ARGUMENTS[0]}' == 'torgua_Owner'  Wait Until Page Contains Element    xpath= //*[@testval="notifications"]    timeout=100
 
     Run Keyword If  '${ARGUMENTS[0]}' == 'torgua_Owner'  Run Keyword And Ignore Error        Click Element    //*[@testval="accept"]
 
@@ -155,7 +155,7 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     #Wait Until Page Contains Element    id=content
 
     Sleep    10
-    Wait Until Page Contains Element    //*[@testval='myTenders']    timeout=60
+    Wait Until Page Contains Element    //*[@testval='myTenders']    timeout=100
     Click Element    xpath=//*[@testval='myTenders']
     Click Element    xpath=//*[text()='Додати закупівлю']
 
@@ -182,7 +182,7 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     Click Element                                             //*[@testval="codeclassification"]
     #Debug
     Sleep    2
-        Wait Until Page Contains Element    //*[@testval='searchclassification']    timeout=60
+        Wait Until Page Contains Element    //*[@testval='searchclassification']    timeout=100
         Input text                                                 //*[@testval='searchclassification']        ${cpv_description}
         Click Element                                             //*[@testval='btnsearchclassification']
         Sleep    2
@@ -208,9 +208,9 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     Input text                                                    //*[@testval="items_items_deliveryDate_endDate"]/descendant::input[1]        ${items_items_deliveryDate_endDate}
 
     Click Element                                             //*[@testval='btnsave']
-    Wait Until Page Contains Element    xpath= //*[@testval="btntenderkat"]    timeout=60
+    Wait Until Page Contains Element    xpath= //*[@testval="btntenderkat"]    timeout=100
     Click Element                                             //*[@testval="btntenderkat"][1]
-    Wait Until Page Contains Element    xpath= //*[@testval="btnaccept"]    timeout=60
+    Wait Until Page Contains Element    xpath= //*[@testval="btnaccept"]    timeout=100
     Click Element                                             //*[@testval="btnaccept"]
     #Execute Javascript                                 window.scroll(9999,9999)
     Sleep    30
@@ -228,14 +228,16 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     Selenium2Library.Switch Browser        ${ARGUMENTS[0]}
     torgua.Пошук тендера по ідентифікатору в кабінеті     ${ARGUMENTS[0]}     ${ARGUMENTS[2]}
     #debug
+    Wait Until Page Contains Element    xpath=//*[@testval='btnAddDocument']    timeout=100
+    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=100
     Click Element                                             //*[@testval='btnAddDocument']
     Завантажити документ до тендеру     ${ARGUMENTS[1]}
     Input Text                                                    //*[@testval='docdescription']         Test text
     #debug
     Click Element                                             //*[@testval='btnsave']
-    Wait Until Page Contains Element    xpath= //*[@testval="btntenderkat"]    timeout=60
+    Wait Until Page Contains Element    xpath= //*[@testval="btntenderkat"]    timeout=100
     Click Element                                             //*[@testval="btntenderkat"][1]
-    Wait Until Page Contains Element    xpath= //*[@testval="btnaccept"]    timeout=60
+    Wait Until Page Contains Element    xpath= //*[@testval="btnaccept"]    timeout=100
     Click Element                                             //*[@testval="btnaccept"]
     Sleep  30
     torgua.Пошук тендера по ідентифікатору     ${ARGUMENTS[0]}     ${ARGUMENTS[2]}
@@ -306,9 +308,9 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
 
     Run keyword if  '${ARGUMENTS[2]}' == 'tenderPeriod.endDate'  Input text                                                    //*[@testval="tenderPeriod_endDate"]/descendant::input[1]     ${value}   ELSE   Input text                                                //*[@testval='${prop}']     ${value}
     Click Element                                             //*[@testval='btnsave']
-    Wait Until Page Contains Element    xpath= //*[@testval="btntenderkat"]    timeout=60
+    Wait Until Page Contains Element    xpath= //*[@testval="btntenderkat"]    timeout=100
     Click Element                                             //*[@testval="btntenderkat"][1]
-    Wait Until Page Contains Element    xpath= //*[@testval="btnaccept"]    timeout=60
+    Wait Until Page Contains Element    xpath= //*[@testval="btnaccept"]    timeout=100
     Click Element                                             //*[@testval="btnaccept"]
     Sleep    20
     torgua.Пошук тендера по ідентифікатору     ${ARGUMENTS[0]}     ${ARGUMENTS[1]}
@@ -347,10 +349,10 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     Selenium2Library.Switch Browser        ${ARGUMENTS[0]}
     torgua.Пошук тендера по ідентифікатору        ${ARGUMENTS[0]}     ${ARGUMENTS[1]}
     Sleep   10
-    Wait Until Page Contains Element    xpath=//*[@testval='btnQuestions']    timeout=60
-    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=60
+    Wait Until Page Contains Element    xpath=//*[@testval='btnQuestions']    timeout=100
+    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=100
     Click Element                                                 xpath=//*[@testval='btnQuestions']
-    Wait Until Page Contains Element    xpath=//*[@testval='questionTitle'][1]    timeout=60
+    Wait Until Page Contains Element    xpath=//*[@testval='questionTitle'][1]    timeout=100
     Input text                                                    xpath=//*[@testval='questionTitle']                                 ${title}
     Input text                                                    xpath=//*[@testval='questionText']                                 ${description}
     Click Element                                             xpath=//*[@testval='btnAddQuestion']
@@ -368,12 +370,12 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     ${amount}=        Convert To String         ${amount}
     torgua.Пошук тендера по ідентифікатору     ${ARGUMENTS[0]}     ${ARGUMENTS[1]}
     Sleep  10
-    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=60
+    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=100
     Click Element     xpath=//*[@testval='btnProvider']
     Sleep  10
     Input text        xpath=//*[@testval='proposition']                                    ${amount}
     Click Element     xpath=//*[@testval='btnApply']
-    Wait Until Page Contains Element    xpath=//*[@testval='btnBidKat']    timeout=60
+    Wait Until Page Contains Element    xpath=//*[@testval='btnBidKat']    timeout=100
     Click Element     xpath=//*[@testval='btnBidKat'][1]
     Sleep  5
     Click Element     xpath=//*[@testval='btnActivate'][1]
@@ -390,9 +392,9 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     ...            ${ARGUMENTS[3]} ==    ${fieldvalue}
     #debug
     #torgua.Пошук тендера по ідентифікатору     ${ARGUMENTS[0]}     ${ARGUMENTS[1]}
-    Wait Until Page Contains Element    xpath=//*[@testval='btnProfile']    timeout=60
+    Wait Until Page Contains Element    xpath=//*[@testval='btnProfile']    timeout=100
     Click Element                                             //*[@testval='btnProfile']
-    Wait Until Page Contains Element    xpath=//*[@testval='btnMyBids']    timeout=60
+    Wait Until Page Contains Element    xpath=//*[@testval='btnMyBids']    timeout=100
     Click Element                                             //*[@testval='btnMyBids']
     Sleep  10
     Click Element                                             //*[@testval='btnBidKat'][1]
@@ -403,8 +405,8 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     Input text        xpath=//*[@testval='proposition']                ${ARGUMENTS[3]}
     Click Element     xpath=//*[@testval='btnApply']
     Sleep  5
-    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=60
-    Wait Until Page Contains Element    xpath=//*[@testval='btnBidKat']    timeout=60
+    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=100
+    Wait Until Page Contains Element    xpath=//*[@testval='btnBidKat']    timeout=100
     Click Element     xpath=//*[@testval='btnBidKat'][1]
     Sleep  5
     #Click Element     xpath=//*[@testval='btnActivate'][1]
@@ -414,7 +416,7 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     [Arguments]    @{ARGUMENTS}
     torgua.Пошук тендера по ідентифікатору        ${ARGUMENTS[0]}     ${ARGUMENTS[1]}
     Click Element                                                 xpath=//*[@testval='btnQuestions']
-    Wait Until Page Contains Element    xpath=//*[@testval='textAnswer'][1]    timeout=60
+    Wait Until Page Contains Element    xpath=//*[@testval='textAnswer'][1]    timeout=100
     Input Text   xpath=//*[@testval="textAnswer"]          ${ARGUMENTS[2].data.answer}
     Click Element                                                 xpath=//*[@testval='btnAnswer']
 
@@ -432,9 +434,9 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
         ...        ${ARGUMENTS[1]} ==    file
         ...        ${ARGUMENTS[2]} ==    tenderId
     Selenium2Library.Switch Browser         ${ARGUMENTS[0]}
-    Wait Until Page Contains Element    xpath=//*[@testval='btnProfile']    timeout=60
+    Wait Until Page Contains Element    xpath=//*[@testval='btnProfile']    timeout=100
     Click Element                                             //*[@testval='btnProfile']
-    Wait Until Page Contains Element    xpath=//*[@testval='btnMyBids']    timeout=60
+    Wait Until Page Contains Element    xpath=//*[@testval='btnMyBids']    timeout=100
     Click Element                                             //*[@testval='btnMyBids']
     Sleep  10
     Click Element                                             //*[@testval='btnBidKat'][1]
@@ -447,8 +449,8 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     Sleep  10
     Click Element     xpath=//*[@testval='btnApply']
     Sleep  10
-    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=60
-    Wait Until Page Contains Element    xpath=//*[@testval='btnBidKat']    timeout=60
+    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=100
+    Wait Until Page Contains Element    xpath=//*[@testval='btnBidKat']    timeout=100
     Click Element     xpath=//*[@testval='btnBidKat'][1]
     #Sleep  10
     #Click Element     xpath=//*[@testval='btnActivate'][1]
@@ -462,10 +464,10 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
         ...        ${ARGUMENTS[2]} ==    amount
         ...        ${ARGUMENTS[3]} ==    amount.value
     Selenium2Library.Switch Browser         ${ARGUMENTS[0]}
-    Wait Until Page Contains Element    xpath=//*[@testval='btnProfile']    timeout=60
+    Wait Until Page Contains Element    xpath=//*[@testval='btnProfile']    timeout=100
     Click Element                                             //*[@testval='btnProfile']
-    Wait Until Page Contains Element    xpath=//*[@testval='btnMyBids']    timeout=60
-    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=60
+    Wait Until Page Contains Element    xpath=//*[@testval='btnMyBids']    timeout=100
+    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=100
     Click Element                                             //*[@testval='btnMyBids']
     Sleep  10
     Click Element                                             //*[@testval='btnBidKat'][1]
@@ -477,8 +479,8 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     Choose File                                 //*[@testval='btnChooseFile']                    ${ARGUMENTS[2]}
     Click Element     //*[@testval='btnApply']
     Sleep  10
-    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=60
-    Wait Until Page Contains Element    xpath=//*[@testval='btnBidKat']    timeout=60
+    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=100
+    Wait Until Page Contains Element    xpath=//*[@testval='btnBidKat']    timeout=100
     Click Element     xpath=//*[@testval='btnBidKat'][1]
     Sleep  10
     #Click Element     xpath=//*[@testval='btnActivate'][1]
@@ -492,8 +494,8 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     ...            ${ARGUMENTS[1]} ==    tenderId
         Switch browser     ${ARGUMENTS[0]}
     Go To    ${USERS.users['${ARGUMENTS[0]}'].homepage}
-    Wait Until Page Contains Element    xpath=//*[@testval='nav_procurements']    timeout=60
-    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=60
+    Wait Until Page Contains Element    xpath=//*[@testval='nav_procurements']    timeout=100
+    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=100
     Click Element    xpath=//*[@testval='nav_procurements']
     Sleep    20
     Click Element    xpath=//*[@testval='nav_procurement']
@@ -501,8 +503,8 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     Input text    //*[@testval='searchtender']    ${ARGUMENTS[1]}
     Press Key    //*[@testval='searchtender']    \\13
     Sleep    10
-    Wait Until Page Contains Element    xpath=//*[@testval='tenderinfo'][1]    timeout=60
-    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=60
+    Wait Until Page Contains Element    xpath=//*[@testval='tenderinfo'][1]    timeout=100
+    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=100
     Click Element    xpath=//*[@testval='tenderinfo'][1]
     #Wait Until Page Contains Element    id=content
     Sleep    5
@@ -513,15 +515,15 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     ...            ${ARGUMENTS[0]} ==    username
     ...            ${ARGUMENTS[1]} ==    tenderId
     Go To    ${USERS.users['${ARGUMENTS[0]}'].homepage}
-    Wait Until Page Contains Element    xpath=//*[@testval='btnProfile']    timeout=60
+    Wait Until Page Contains Element    xpath=//*[@testval='btnProfile']    timeout=100
     Click Element                                             //*[@testval='btnProfile']
-    Wait Until Page Contains Element    xpath=//*[@testval='myTenders']    timeout=60
+    Wait Until Page Contains Element    xpath=//*[@testval='myTenders']    timeout=100
     Click Element                                             //*[@testval='myTenders']
     Input text    //*[@testval='searchTender']    ${ARGUMENTS[1]}
     Press Key    //*[@testval='searchTender']    \\13
-    Wait Until Page Contains Element    xpath=//*[@testval="btntenderkat"]    timeout=60
+    Wait Until Page Contains Element    xpath=//*[@testval="btntenderkat"]    timeout=100
     Click Element                                             //*[@testval="btntenderkat"][1]
-    Wait Until Page Contains Element    xpath= //*[@testval="btnEditTender"]    timeout=60
+    Wait Until Page Contains Element    xpath= //*[@testval="btnEditTender"]    timeout=100
     Sleep    10
     Click Element                                             //*[@testval="btnEditTender"]
     Sleep    10
@@ -542,8 +544,8 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     [Arguments]  @{ARGUMENTS}
     #debug
     torgua.Пошук тендера по ідентифікатору        ${ARGUMENTS[0]}     ${ARGUMENTS[1]}
-    Wait Until Page Contains Element    xpath= //*[@testval="btnQuestions"]    timeout=60
-    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=60
+    Wait Until Page Contains Element    xpath= //*[@testval="btnQuestions"]    timeout=100
+    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=100
     Click Element                                             //*[@testval='btnQuestions']
     Sleep    5
     ${return_value}=  run keyword  Отримати інформацію про questions ${ARGUMENTS[3]}
@@ -631,9 +633,9 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     [return]    ${valueAmount}
 
 отримати інформацію із пропозиції про value.amount
-    Wait Until Page Contains Element    xpath=//*[@testval='btnProfile']    timeout=60
+    Wait Until Page Contains Element    xpath=//*[@testval='btnProfile']    timeout=100
     Click Element                                             //*[@testval='btnProfile']
-    Wait Until Page Contains Element    xpath=//*[@testval='btnMyBids']    timeout=60
+    Wait Until Page Contains Element    xpath=//*[@testval='btnMyBids']    timeout=100
     Click Element                                             //*[@testval='btnMyBids']
     Sleep  10
     Click Element                                             //*[@testval='btnBidKat'][1]

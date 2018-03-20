@@ -460,7 +460,7 @@ aladdin:
 torgua:
     intervals:
         default:
-            enquiry: [0, 40]
+            enquiry: [0, 45]
             tender:  [0, 20]
         openua:
             accelerator: 720

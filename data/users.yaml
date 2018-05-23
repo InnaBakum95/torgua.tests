@@ -708,7 +708,7 @@ users:
         size:     [1100, 5000]
     torgua_Owner:
         broker:   torgua
-        homepage: "http://prozorro.web.bidon-tech.com:65050"
+        homepage: "https://torgua.com"
         login:    zum@zum.com
         password: q1w2e3r4t5y6
         browser:  firefox
@@ -716,7 +716,7 @@ users:
         size:     [1280, 1024]
     torgua_Provider:
         broker:   torgua
-        homepage: "http://prozorro.web.bidon-tech.com:65050"
+        homepage: "https://torgua.com"
         login:    inoy2007@ukr.net
         password: q1w2e3r4t5y6
         browser:  firefox
@@ -724,7 +724,7 @@ users:
         size:     [1280, 1024]
     torgua_Provider1:
         broker:   torgua
-        homepage: "http://prozorro.web.bidon-tech.com:65050"
+        homepage: "https://torgua.com"
         login:    pv4pv4@gmail.com
         password: JPsv6T7l
         browser:  firefox
@@ -732,7 +732,7 @@ users:
         size:     [1280, 1024]  
     torgua_Provider2:
         broker:   torgua
-        homepage: "http://prozorro.web.bidon-tech.com:65050"
+        homepage: "https://torgua.com"
         login:    orgrimmar@rambler.ru
         password: 65BkEmDq
         browser:  firefox
@@ -740,7 +740,7 @@ users:
         size:     [1280, 1024]           
     torgua_Viewer:
         broker:   torgua
-        homepage: "http://prozorro.web.bidon-tech.com:65050"
+        homepage: "https://torgua.com"
         login:    lol@lol.com
         password: 6dMo48yJ
         browser:  firefox

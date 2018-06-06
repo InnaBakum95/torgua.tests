@@ -53,7 +53,7 @@ ${locator.questions[0].description}    xpath =//*[@testval="questions_descriptio
 ${locator.questions[0].date}                 xpath = //*[@testval="questions_date"][1]
 ${locator.questions[0].answer}             xpath=//*[@testval="questions_answer"][1]
 
-#${locator.awards[1].complaintPeriod.endDate}
+${locator.awards[0].complaintPeriod.endDate}             xpath=//*[@testval="awards_complaintPeriod_endDate"]
 ${locator.document.title}             xpath=//*[@testval="document_title"]
 *** Keywords ***
 
@@ -72,13 +72,13 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     ...            alias=${ARGUMENTS[0]}
     Set Window Size             @{USERS.users['${ARGUMENTS[0]}'].size}
     Set Window Position     @{USERS.users['${ARGUMENTS[0]}'].position}
-    Click Element    //*[text()='АВТОРИЗАЦІЯ']
+    Click Element    xpath=//a[contains(@href,'signin')]
     #Wait Until Page Contains Element    xpath= //main[@class="_1b7uc56"]
     Input text    xpath=//*[@testval="login"]    ${USERS.users['${ARGUMENTS[0]}'].login}
     Input text    xpath=//*[@testval="password"]   ${USERS.users['${ARGUMENTS[0]}'].password}
     Click Element    //*[@testval="signin"]
     Sleep    5
-    Run Keyword If  '${ARGUMENTS[0]}' == 'torgua_Owner'  Wait Until Page Contains Element    xpath= //*[@testval="notifications"]    timeout=100
+    Run Keyword If  '${ARGUMENTS[0]}' == 'torgua_Owner'  Run Keyword And Ignore Error        Wait Until Page Contains Element    xpath= //*[@testval="notifications"]    timeout=100
 
     Run Keyword If  '${ARGUMENTS[0]}' == 'torgua_Owner'  Run Keyword And Ignore Error        Click Element    //*[@testval="accept"]
 
@@ -226,7 +226,7 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     ...            ${ARGUMENTS[1]} ==    ${filepath}
     ...            ${ARGUMENTS[2]} ==    ${TENDER_UAID}
     Selenium2Library.Switch Browser        ${ARGUMENTS[0]}
-    torgua.Пошук тендера по ідентифікатору в кабінеті     ${ARGUMENTS[0]}     ${ARGUMENTS[2]}
+    torgua.Пошук тендера по ідентифікатору в кабінеті     ${ARGUMENTS[0]}     ${ARGUMENTS[2]}     "btnEditTender"
     #debug
     Wait Until Page Contains Element    xpath=//*[@testval='btnAddDocument']    timeout=100
     Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=100
@@ -302,7 +302,7 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     ...            ${ARGUMENTS[1]} =    ${TENDER_UAID}
     Selenium2Library.Switch Browser         ${ARGUMENTS[0]}
 #    debug
-    torgua.Пошук тендера по ідентифікатору в кабінеті     ${ARGUMENTS[0]}     ${ARGUMENTS[1]}
+    torgua.Пошук тендера по ідентифікатору в кабінеті     ${ARGUMENTS[0]}     ${ARGUMENTS[1]}     "btnEditTender"
     ${value}=  Run keyword if  '${ARGUMENTS[2]}' == 'tenderPeriod.endDate'  Convert Date To String     ${ARGUMENTS[3]}   ELSE   CONVERT TO STRING    ${ARGUMENTS[3]}
     ${prop}=  Evaluate  '${ARGUMENTS[2]}'.replace(".", "_")
 
@@ -514,6 +514,7 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
         [Documentation]
     ...            ${ARGUMENTS[0]} ==    username
     ...            ${ARGUMENTS[1]} ==    tenderId
+    ...            ${ARGUMENTS[2]} ==    action
     Go To    ${USERS.users['${ARGUMENTS[0]}'].homepage}
     Wait Until Page Contains Element    xpath=//*[@testval='btnProfile']    timeout=100
     Click Element                                             //*[@testval='btnProfile']
@@ -523,9 +524,8 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     Press Key    //*[@testval='searchTender']    \\13
     Wait Until Page Contains Element    xpath=//*[@testval="btntenderkat"]    timeout=100
     Click Element                                             //*[@testval="btntenderkat"][1]
-    Wait Until Page Contains Element    xpath= //*[@testval="btnEditTender"]    timeout=100
-    Sleep    10
-    Click Element                                             //*[@testval="btnEditTender"]
+    Wait Until Page Contains Element    xpath=//*[@testval=${ARGUMENTS[2]}]    timeout=100
+    Click Element    //*[@testval=${ARGUMENTS[2]}]
     Sleep    10
 
 
@@ -652,8 +652,10 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     ${minimalStepAmount}=      Convert To Number     ${minimalStepAmount.split(' ')[0]}
     [return]    ${minimalStepAmount}
 
-Отримати інформацію про awards[1].complaintPeriod.endDate
-    ${awardComplaintPeriodEndDate}=     Отримати текст із поля і показати на сторінці awards[1].complaintPeriod.endDate
+Отримати інформацію про awards[0].complaintPeriod.endDate
+    MyClick Element  'btnResultQualification'
+    Sleep  10
+    ${awardComplaintPeriodEndDate}=     Отримати текст із поля і показати на сторінці awards[0].complaintPeriod.endDate
     ${awardComplaintPeriodEndDate}=     parse_date     ${awardComplaintPeriodEndDate}
     [return]    ${awardComplaintPeriodEndDate}
 
@@ -822,3 +824,193 @@ ${locator.document.title}             xpath=//*[@testval="document_title"]
     #${status}=     Get Element Attribute     //*[@name='tender-status']@value
     ${status}=     Get Element Attribute         xpath=(//*[@testval='tender-status'])@value
     [return]    ${status}
+
+MyClick Element
+    [Arguments]    ${element}
+    Wait Until Page Contains Element    xpath=//*[@testval=${element}]    timeout=100
+    Click Element  xpath=//*[@testval=${element}]
+    Sleep  5
+
+Завантажити документ рішення кваліфікаційної комісії
+    [Arguments]    @{ARGUMENTS}
+    torgua.Пошук тендера по ідентифікатору в кабінеті     ${ARGUMENTS[0]}    ${ARGUMENTS[2]}    "btnQualification"
+    Sleep  10
+    MyClick Element  'btnAddDocument'
+    MyClick Element  'typeDocument'
+    MyClick Element  'itemResponseMessage'
+    Input text    //*[@testval='descriptionDocument']    descriptionDocument
+    Sleep  10
+    Execute Javascript  $("input[type='file']").css('display', 'block')
+    Sleep  20
+    Choose File                                 //*[@testval='btnChooseDocument']/descendant::input[1]                    ${ARGUMENTS[1]}
+    Sleep  10
+
+Підтвердити постачальника
+    [Arguments]  ${username}  ${tender_uaid}  ${award_num}
+    MyClick Element  'btnWinner'
+    MyClick Element  'checkboxWinner1'
+    MyClick Element  'checkboxWinner2'
+    Input text    //*[@testval='descriptionResult']    descriptionResult
+    MyClick Element  'btnContinue'
+    Sleep  30
+    MyClick Element  'btnApproove'
+    Sleep  20
+    MyClick Element  'btnApprooveWinner'
+
+Підтвердити підписання контракту
+    [Arguments]    @{ARGUMENTS}
+    torgua.Пошук тендера по ідентифікатору в кабінеті     ${ARGUMENTS[0]}    ${ARGUMENTS[1]}    "btnContract1"
+    Sleep  10
+    Input text    //*[@testval='contractNum']    ${ARGUMENTS[2]}
+    MyClick Element  'btnSaveContract'
+    Sleep  30
+    MyClick Element  'btnApprooveContract'
+
+#################          PLAN
+
+Оновити сторінку з планом
+    [Arguments]    @{ARGUMENTS}
+    [Documentation]
+    ...            ${ARGUMENTS[0]} = username
+    ...            ${ARGUMENTS[1]} = planUaId
+
+    Selenium2Library.Switch Browser        ${ARGUMENTS[0]}
+    torgua.Пошук плану по ідентифікатору        ${ARGUMENTS[0]}     ${ARGUMENTS[1]}
+    Sleep  10
+    Reload Page
+
+Пошук плану по ідентифікатору
+    [Arguments]    @{ARGUMENTS}
+        [Documentation]
+    ...            ${ARGUMENTS[0]} ==    username
+    ...            ${ARGUMENTS[1]} ==    planId
+    Switch browser     ${ARGUMENTS[0]}
+    Go To    ${USERS.users['${ARGUMENTS[0]}'].homepage}
+    Wait Until Page Contains Element    xpath=//*[@testval='nav_procurements']    timeout=100
+    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=100
+    Click Element    xpath=//*[@testval='nav_procurements']
+    Sleep    20
+    Click Element    xpath=//*[@testval='nav_plans']
+    Sleep    10
+    Input text    //*[@testval='searchplan']    ${ARGUMENTS[1]}
+    Press Key    //*[@testval='searchplan']    \\13
+    Sleep    10
+    Wait Until Page Contains Element    xpath=//*[@testval='planinfo'][1]    timeout=100
+    Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=100
+    Click Element    xpath=//*[@testval='planinfo'][1]
+    #Wait Until Page Contains Element    id=content
+    Sleep    5
+
+Пошук плану по ідентифікатору в кабінеті
+    [Arguments]    @{ARGUMENTS}
+        [Documentation]
+    ...            ${ARGUMENTS[0]} ==    username
+    ...            ${ARGUMENTS[1]} ==    planId
+    ...            ${ARGUMENTS[2]} ==    action
+    Go To    ${USERS.users['${ARGUMENTS[0]}'].homepage}
+    Wait Until Page Contains Element    xpath=//*[@testval='btnProfile']    timeout=100
+    Click Element                                             //*[@testval='btnProfile']
+    Wait Until Page Contains Element    xpath=//*[@testval='myPlans']    timeout=100
+    Click Element                                             //*[@testval='myPlans']
+    Input text    //*[@testval='searchplan']    ${ARGUMENTS[1]}
+    Press Key    //*[@testval='searchplan']    \\13
+    Wait Until Page Contains Element    xpath=//*[@testval="btnplankat"]    timeout=100
+    Click Element                                             //*[@testval="btnplankat"][1]
+    Wait Until Page Contains Element    xpath=//*[@testval=${ARGUMENTS[2]}]    timeout=100
+    Click Element    //*[@testval=${ARGUMENTS[2]}]
+    Sleep    10
+
+Створити план
+    [Arguments]    @{ARGUMENTS}
+    [Documentation]
+    ...            ${ARGUMENTS[0]} ==    username
+    ...            ${ARGUMENTS[1]} ==    plan_data
+    ${procurementMethodType}=     Get From Dictionary        ${ARGUMENTS[1].data.tender}                 procurementMethodType
+    ${budget_amount}=                Get From Dictionary     ${ARGUMENTS[1].data.budget}                 amount
+    ${budget_amount}=                            Format         ${budget_amount}
+    ${budget_description}=     Get From Dictionary     ${ARGUMENTS[1].data.budget}                             description
+    ${budget_currency}=                Get From Dictionary     ${ARGUMENTS[1].data.budget}                 currency
+    ${budget_id}=                Get From Dictionary     ${ARGUMENTS[1].data.budget}                 id
+    ${project_id}=                Get From Dictionary     ${ARGUMENTS[1].data.budget.project}                 id
+    ${project_name}=                Get From Dictionary     ${ARGUMENTS[1].data.budget.project}                 name
+
+    ${items}=                 Get From Dictionary     ${ARGUMENTS[1].data}                             items
+    ${cpv_id}=                Get From Dictionary     ${items[0].classification}                 id
+    ${cpv_description}=                     Get From Dictionary     ${items[0].classification}                 description
+
+    ${cpv_id_plan}=                Get From Dictionary     ${ARGUMENTS[1].data.classification}                 id
+    ${cpv_description_plan}=                     Get From Dictionary     ${ARGUMENTS[1].data.classification}                 description
+
+    ${tenderPeriod_startDate}=     Get From Dictionary        ${ARGUMENTS[1].data.tender}                 tenderPeriod
+    ${tenderPeriod_startDate}=                Convert Date To String     ${tenderPeriod_startDate}
+
+    ${items_description}=     Get From Dictionary     ${items[0]}                 description
+    ${items_unit_quantity}=     Get From Dictionary     ${items[0]}                 quantity
+    ${items_unit_code}=     Get From Dictionary     ${items[0].unit}                 code
+
+    ${items_items_deliveryDate_endDate}=     Get From Dictionary     ${items[0].deliveryDate}                 endDate
+    ${items_items_deliveryDate_endDate}=                Convert Date To String     ${items_items_deliveryDate_endDate}
+
+    #Змінити персональні дані        ${ARGUMENTS[1]}
+
+    Selenium2Library.Switch Browser         ${ARGUMENTS[0]}
+
+    Sleep    10
+    Wait Until Page Contains Element    //*[@testval='myPlans']    timeout=100
+    MyClick Element    'myPlans'
+    MyClick Element    'btnCreatePlan'
+
+    MyClick Element         'procurementMethodType'
+    MyClick Element         '${procurementMethodType}'
+
+    Input text    //*[@testval="budget_description"]        ${budget_description}
+    Input text    //*[@testval="budget_amount"]        ${budget_amount}
+
+    MyClick Element         'budget_currency'
+    MyClick Element         '${budget_currency}'
+
+    Input text    //*[@testval="tenderPeriod_startDate"]/descendant::input[1]     ${tenderPeriod_startDate}
+
+    #Main Classification
+    Click Element                                             //*[@testval="codeclassification"][1]
+    Sleep    2
+    Wait Until Page Contains Element    //*[@testval='searchclassification'][1]    timeout=100
+    Input text                                                 //*[@testval='searchclassification']        ${cpv_description_plan}
+    Click Element                                             //*[@testval='btnsearchclassification']
+    Sleep    2
+    Click Element                                             //*[@testval='${cpv_id_plan}']
+    Click Element                                             //*[@testval='btncheck']
+
+
+    Click Element                                             //*[@testval="btnadd"]
+
+    Input text                                                    //*[@testval="items_description"]        ${items_description}
+
+    #Item classification
+    Click Element                                             //*[@testval="codeclassification"][2]
+    Sleep    2
+    Wait Until Page Contains Element    //*[@testval='searchclassification']    timeout=100
+    Input text                                                 //*[@testval='searchclassification']        ${cpv_description}
+    Click Element                                             //*[@testval='btnsearchclassification']
+    Sleep    2
+    Click Element                                             //*[@testval='${cpv_id}']
+    Click Element                                             //*[@testval='btncheck']
+
+    # Select Код одиниці виміру (має відповідати стандарту UN/CEFACT, наприклад - KGM)
+    Click Element         //*[@testval="btn_unit_code"]/descendant::button[1]
+    Click Element         //*[@testval='${items_unit_code}']
+
+    Input text                                                    //*[@testval="items_unit_quantity"]        ${items_unit_quantity}
+
+    # It is Костыль (конфуз между ТЗ прозорро и ТЗ автотестов
+    Execute Javascript  $("input[testval='project_id']").css('display', 'block')
+    Execute Javascript  $("input[testval='project_name']").css('display', 'block')
+
+    Input text    //*[@testval="project_id"]        ${project_id}
+    Input text    //*[@testval="project_name"]        ${project_name}
+
+    Click Element                                             //*[@testval='btnsave']
+    Wait Until Page Contains Element    xpath= //*[@testval="btnplankat"]    timeout=100
+
+    ${plan_UAid}=    Get Text                     //*[@testval="plan_UAid"][1]
+    [return]    ${plan_UAid}

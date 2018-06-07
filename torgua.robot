@@ -961,7 +961,7 @@ MyClick Element
     MyClick Element    'btnCreatePlan'
 
     MyClick Element         'procurementMethodType'
-    MyClick Element         '${procurementMethodType}'
+    MyClick Element         "${procurementMethodType}"
 
     Input text    //*[@testval="budget_description"]        ${budget_description}
     Input text    //*[@testval="budget_amount"]        ${budget_amount}

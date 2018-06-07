@@ -941,7 +941,7 @@ MyClick Element
     ${cpv_id_plan}=                Get From Dictionary     ${ARGUMENTS[1].data.classification}                 id
     ${cpv_description_plan}=                     Get From Dictionary     ${ARGUMENTS[1].data.classification}                 description
 
-    ${tenderPeriod_startDate}=     Get From Dictionary        ${ARGUMENTS[1].data.tender}                 tenderPeriod
+    ${tenderPeriod_startDate}=     Get From Dictionary        ${ARGUMENTS[1].data.tender.tenderPeriod}                 startDate
     ${tenderPeriod_startDate}=                Convert Date To String     ${tenderPeriod_startDate}
 
     ${items_description}=     Get From Dictionary     ${items[0]}                 description

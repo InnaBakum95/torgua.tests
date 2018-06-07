@@ -886,6 +886,7 @@ MyClick Element
     ...            ${ARGUMENTS[1]} ==    planId
     Switch browser     ${ARGUMENTS[0]}
     Go To    ${USERS.users['${ARGUMENTS[0]}'].homepage}
+    Click Element    xpath=//a[contains(@href,'signin')]
     Wait Until Page Contains Element    xpath=//*[@testval='nav_procurements']    timeout=100
     Wait Until Element Is Not Visible    xpath=//*[@testval='loader']    timeout=100
     Click Element    xpath=//*[@testval='nav_procurements']
@@ -908,6 +909,7 @@ MyClick Element
     ...            ${ARGUMENTS[1]} ==    planId
     ...            ${ARGUMENTS[2]} ==    action
     Go To    ${USERS.users['${ARGUMENTS[0]}'].homepage}
+    Click Element    xpath=//a[contains(@href,'signin')]
     Wait Until Page Contains Element    xpath=//*[@testval='btnProfile']    timeout=100
     Click Element                                             //*[@testval='btnProfile']
     Wait Until Page Contains Element    xpath=//*[@testval='myPlans']    timeout=100
@@ -961,7 +963,7 @@ MyClick Element
     MyClick Element    'btnCreatePlan'
 
     MyClick Element         'procurementMethodType'
-    MyClick Element         "${procurementMethodType}"
+    MyClick Element         '${procurementMethodType}'
 
     Input text    //*[@testval="budget_description"]        ${budget_description}
     Input text    //*[@testval="budget_amount"]        ${budget_amount}

@@ -55,6 +55,41 @@ ${locator.questions[0].answer}             xpath=//*[@testval="questions_answer"
 
 ${locator.awards[0].complaintPeriod.endDate}             xpath=//*[@testval="awards_complaintPeriod_endDate"]
 ${locator.document.title}             xpath=//*[@testval="document_title"]
+
+${locator.plan.tender.procurementMethodType}    xpath=//*[@testval="plan.tender.procurementMethodType"]
+${locator.plan.budget.amount}    xpath=//*[@testval="plan.budget.amount"]
+${locator.plan.budget.description}    xpath=//*[@testval="plan.budget.description"]
+${locator.plan.budget.currency}    xpath=//*[@testval="plan.budget.currency"]
+${locator.plan.budget.id}    xpath=//*[@testval="plan.budget.id"]
+${locator.budget.project.id}    xpath=//*[@testval="budget.project.id"]
+${locator.budget.project.name}    xpath=//*[@testval="budget.project.name"]
+${locator.plan.procuringEntity.identifier.scheme}    xpath=//*[@testval="plan.procuringEntity.identifier.scheme"]
+${locator.plan.procuringEntity.identifier.id}    xpath=//*[@testval="procuringEntity.identifier.id"]
+${locator.plan.procuringEntity.identifier.legalName}    xpath=//*[@testval="plan.procuringEntity.identifier.legalName"]
+${locator.plan.classification.description}    xpath=//*[@testval="plan.classification.description"]
+${locator.plan.classification.scheme}    xpath=//*[@testval="plan.classification.scheme"]
+${locator.plan.classification.id}    xpath=//*[@testval="plan.classification.id"]
+${locator.plan.tender.tenderPeriod.startDate}    xpath=//*[@testval="plan.tender.tenderPeriod.startDate"]
+${locator.plan.items[0].description}    xpath=//*[@testval="plan.items[0].description"]
+${locator.plan.items[0].quantity}    xpath=//*[@testval="plan.items[0].quantity"]
+${locator.plan.items[0].deliveryDate.endDate}    xpath=//*[@testval="plan.items[0].deliveryDate.endDate"]
+${locator.plan.items[0].unit.code}    xpath=//*[@testval="plan.items[0].unit.code"]
+${locator.plan.items[0].unit.name}    xpath=//*[@testval="plan.items[0].unit.name"]
+${locator.plan.items[0].classification.description}    xpath=//*[@testval="plan.items[0].classification.description"]
+${locator.plan.items[0].classification.scheme}    xpath=//*[@testval="plan.items[0].classification.scheme"]
+${locator.plan.items[0].classification.id}    xpath=//*[@testval="plan.items[0].classification.id"]
+
+
+
+
+
+
+
+
+
+
+
+
 *** Keywords ***
 
 Підготувати дані для оголошення тендера
@@ -879,6 +914,8 @@ MyClick Element
     Sleep  10
     Reload Page
 
+
+
 Пошук плану по ідентифікатору
     [Arguments]    @{ARGUMENTS}
         [Documentation]
@@ -1016,3 +1053,113 @@ MyClick Element
 
     ${plan_UAid}=    Get Text                     //*[@testval="plan_UAid"][1]
     [return]    ${plan_UAid}
+
+Отримати інформацію із плану
+    [Arguments]  @{ARGUMENTS}
+    [Documentation]
+    ...      ${ARGUMENTS[0]} ==  plan_uaid
+    ...      ${ARGUMENTS[1]} ==  field
+    ${return_value}=  run keyword  Отримати інформацію про план ${ARGUMENTS[2]}
+    [return]
+
+
+Отримати інформацію про план tender.procurementMethodType
+        ${result}=     Отримати текст із поля і показати на сторінці     plan.tender.procurementMethodType
+        [return]    ${result}
+
+
+Отримати інформацію про план budget.amount
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.budget.amount
+         [return]    ${result}
+
+Отримати інформацію про план budget.description
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.budget.description
+         [return]    ${result}
+
+Отримати інформацію про план budget.currency
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.budget.currency
+         [return]    ${result}
+
+Отримати інформацію про план budget.id
+    Execute Javascript  $("input[testval='plan.budget.id']").css('display', 'block')
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.budget.id
+         [return]    ${result}
+
+
+Отримати інформацію про план budget.project.id
+# It is Костыль (конфуз между ТЗ прозорро и ТЗ автотестов
+    Execute Javascript  $("input[testval='budget.project.id']").css('display', 'block')
+         ${result}=     Отримати текст із поля і показати на сторінці     budget.project.id
+         [return]    ${result}
+
+Отримати інформацію про план budget.project.name
+# It is Костыль (конфуз между ТЗ прозорро и ТЗ автотестов
+    Execute Javascript  $("input[testval='budget.project.name']").css('display', 'block')
+         ${result}=     Отримати текст із поля і показати на сторінці     budget.project.name
+         [return]    ${result}
+
+
+Отримати інформацію про план procuringEntity.identifier.scheme
+    Execute Javascript  $("input[testval='plan.procuringEntity.identifier.scheme']").css('display', 'block')
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.procuringEntity.identifier.scheme
+         [return]    ${result}
+
+Отримати інформацію про план procuringEntity.identifier.id
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.procuringEntity.identifier.id
+         [return]    ${result}
+
+Отримати інформацію про план procuringEntity.identifier.legalName
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.procuringEntity.identifier.legalName
+         [return]    ${result}
+
+Отримати інформацію про план classification.description
+    Execute Javascript  $("input[testval='plan.classification.description']").css('display', 'block')
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.classification.description
+         [return]    ${result}
+
+Отримати інформацію про план classification.scheme
+    Execute Javascript  $("input[testval='plan.classification.scheme']").css('display', 'block')
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.classification.scheme
+         [return]    ${result}
+
+Отримати інформацію про план classification.id
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.classification.id
+         [return]    ${result}
+
+
+отримати інформацію про план tender.tenderPeriod.startDate
+    ${result}=     Отримати текст із поля і показати на сторінці         plan.tender.tenderPeriod.startDate
+    ${result}=     parse_date        ${result}
+    [return]    ${result}
+
+Отримати інформацію про план items[0]description
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].description
+         [return]    ${result}
+
+Отримати інформацію про план items[0]quantity
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].quantity
+         [return]    ${result}
+
+Отримати інформацію про план items[0]deliveryDate.endDate
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].deliveryDate.endDate
+         ${result}=     parse_date        ${result}
+         [return]    ${result}
+Отримати інформацію про план items[0]unit.code
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].unit.code
+         [return]    ${result}
+
+Отримати інформацію про план items[0]unit.name
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].unit.name
+         [return]    ${result}
+
+Отримати інформацію про план items[0]classification.description
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].classification.description
+         [return]    ${result}
+
+Отримати інформацію про план items[0]classification.scheme
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].classification.scheme
+         [return]    ${result}
+
+Отримати інформацію про план items[0]classification.id
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].classification.id
+         [return]    ${result}

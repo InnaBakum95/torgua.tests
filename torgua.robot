@@ -78,6 +78,9 @@ ${locator.plan.items[0].unit.name}    xpath=//*[@testval="plan.items[0].unit.nam
 ${locator.plan.items[0].classification.description}    xpath=//*[@testval="plan.items[0].classification.description"]
 ${locator.plan.items[0].classification.scheme}    xpath=//*[@testval="plan.items[0].classification.scheme"]
 ${locator.plan.items[0].classification.id}    xpath=//*[@testval="plan.items[0].classification.id"]
+${locator.plan.procuringEntity.name}    xpath=//*[@testval="plan.procuringEntity.name"]
+
+
 
 
 
@@ -638,7 +641,7 @@ ${locator.plan.items[0].classification.id}    xpath=//*[@testval="plan.items[0].
 
 Отримати текст із поля і показати на сторінці
     [Arguments]     ${fieldname}
-    sleep    1
+    sleep    15
     ${return_value}=     Get Text    ${locator.${fieldname}}
     [return]    ${return_value}
 
@@ -1060,7 +1063,7 @@ MyClick Element
     ...      ${ARGUMENTS[0]} ==  plan_uaid
     ...      ${ARGUMENTS[1]} ==  field
     ${return_value}=  run keyword  Отримати інформацію про план ${ARGUMENTS[2]}
-    [return]
+    [return]    ${return_value}
 
 
 Отримати інформацію про план tender.procurementMethodType
@@ -1070,6 +1073,7 @@ MyClick Element
 
 Отримати інформацію про план budget.amount
          ${result}=     Отримати текст із поля і показати на сторінці     plan.budget.amount
+         ${result} =    Convert To Number   ${result.split(' ')[0]}
          [return]    ${result}
 
 Отримати інформацію про план budget.description
@@ -1080,7 +1084,7 @@ MyClick Element
          ${result}=     Отримати текст із поля і показати на сторінці     plan.budget.currency
          [return]    ${result}
 
-Отримати інформацію про план budget.id
+Отримати інформацію про план plan.budget.id
     Execute Javascript  $("input[testval='plan.budget.id']").css('display', 'block')
          ${result}=     Отримати текст із поля і показати на сторінці     plan.budget.id
          [return]    ${result}
@@ -1097,6 +1101,11 @@ MyClick Element
     Execute Javascript  $("input[testval='budget.project.name']").css('display', 'block')
          ${result}=     Отримати текст із поля і показати на сторінці     budget.project.name
          [return]    ${result}
+
+Отримати інформацію про план procuringEntity.name
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.procuringEntity.name
+         [return]    ${result}
+
 
 
 Отримати інформацію про план procuringEntity.identifier.scheme
@@ -1132,34 +1141,36 @@ MyClick Element
     ${result}=     parse_date        ${result}
     [return]    ${result}
 
-Отримати інформацію про план items[0]description
+Отримати інформацію про план items[0].description
          ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].description
          [return]    ${result}
 
-Отримати інформацію про план items[0]quantity
+Отримати інформацію про план items[0].quantity
          ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].quantity
+         ${result} =    Convert To Integer  ${result}
          [return]    ${result}
 
-Отримати інформацію про план items[0]deliveryDate.endDate
+Отримати інформацію про план items[0].deliveryDate.endDate
          ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].deliveryDate.endDate
          ${result}=     parse_date        ${result}
          [return]    ${result}
-Отримати інформацію про план items[0]unit.code
+
+Отримати інформацію про план items[0].unit.code
          ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].unit.code
          [return]    ${result}
 
-Отримати інформацію про план items[0]unit.name
+Отримати інформацію про план items[0].unit.name
          ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].unit.name
          [return]    ${result}
 
-Отримати інформацію про план items[0]classification.description
+Отримати інформацію про план items[0].classification.description
          ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].classification.description
          [return]    ${result}
 
-Отримати інформацію про план items[0]classification.scheme
+Отримати інформацію про план items[0].classification.scheme
          ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].classification.scheme
          [return]    ${result}
 
-Отримати інформацію про план items[0]classification.id
+Отримати інформацію про план items[0].classification.id
          ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].classification.id
          [return]    ${result}

@@ -472,4 +472,4 @@ torgua:
         provider1:      torgua_Provider1
         provider2:      torgua_Provider2
         viewer:         torgua_Viewer
-    timeout_on_wait: 200
+    timeout_on_wait: 120

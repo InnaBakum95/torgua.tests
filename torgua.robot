@@ -70,19 +70,35 @@ ${locator.plan.classification.description}    xpath=//*[@testval="plan.classific
 ${locator.plan.classification.scheme}    xpath=//*[@testval="plan.classification.scheme"]
 ${locator.plan.classification.id}    xpath=//*[@testval="plan.classification.id"]
 ${locator.plan.tender.tenderPeriod.startDate}    xpath=//*[@testval="plan.tender.tenderPeriod.startDate"]
-${locator.plan.items[0].description}    xpath=//*[@testval="plan.items[0].description"]
-${locator.plan.items[0].quantity}    xpath=//*[@testval="plan.items[0].quantity"]
-${locator.plan.items[0].deliveryDate.endDate}    xpath=//*[@testval="plan.items[0].deliveryDate.endDate"]
-${locator.plan.items[0].unit.code}    xpath=//*[@testval="plan.items[0].unit.code"]
-${locator.plan.items[0].unit.name}    xpath=//*[@testval="plan.items[0].unit.name"]
-${locator.plan.items[0].classification.description}    xpath=//*[@testval="plan.items[0].classification.description"]
-${locator.plan.items[0].classification.scheme}    xpath=//*[@testval="plan.items[0].classification.scheme"]
-${locator.plan.items[0].classification.id}    xpath=//*[@testval="plan.items[0].classification.id"]
+${locator.plan.items[0].description}    xpath=//*[@testval="plan.items[0].description"][1]
+${locator.plan.items[0].quantity}    xpath=//*[@testval="plan.items[0].quantity"][1]
+${locator.plan.items[0].deliveryDate.endDate}    xpath=//*[@testval="plan.items[0].deliveryDate.endDate"][1]
+${locator.plan.items[0].unit.code}    xpath=//*[@testval="plan.items[0].unit.code"][1]
+${locator.plan.items[0].unit.name}    xpath=//*[@testval="plan.items[0].unit.name"][1]
+${locator.plan.items[0].classification.description}    xpath=//*[@testval="plan.items[0].classification.description"][1]
+${locator.plan.items[0].classification.scheme}    xpath=//*[@testval="plan.items[0].classification.scheme"][1]
+${locator.plan.items[0].classification.id}    xpath=//*[@testval="plan.items[0].classification.id"][1]
 ${locator.plan.procuringEntity.name}    xpath=//*[@testval="plan.procuringEntity.name"]
 
 
+${locator.plan.items[1].description}    xpath=//*[@testval="plan.items[1].description"][2]
+${locator.plan.items[1].quantity}    xpath=//*[@testval="plan.items[1].quantity"][2]
+${locator.plan.items[1].deliveryDate.endDate}    xpath=//*[@testval="plan.items[1].deliveryDate.endDate"][2]
+${locator.plan.items[1].unit.code}    xpath=//*[@testval="plan.items[1].unit.code"][2]
+${locator.plan.items[1].unit.name}    xpath=//*[@testval="plan.items[1].unit.name"][2]
+${locator.plan.items[1].classification.description}    xpath=//*[@testval="plan.items[1].classification.description"][2]
+${locator.plan.items[1].classification.scheme}    xpath=//*[@testval="plan.items[1].classification.scheme"][2]
+${locator.plan.items[1].classification.id}    xpath=//*[@testval="plan.items[1].classification.id"][2]
 
 
+${locator.plan.items[2].description}    xpath=//*[@testval="plan.items[2].description"][3]
+${locator.plan.items[2].quantity}    xpath=//*[@testval="plan.items[2].quantity"][3]
+${locator.plan.items[2].deliveryDate.endDate}    xpath=//*[@testval="plan.items[2].deliveryDate.endDate"][3]
+${locator.plan.items[2].unit.code}    xpath=//*[@testval="plan.items[2].unit.code"][3]
+${locator.plan.items[2].unit.name}    xpath=//*[@testval="plan.items[2].unit.name"][3]
+${locator.plan.items[2].classification.description}    xpath=//*[@testval="plan.items[2].classification.description"][3]
+${locator.plan.items[2].classification.scheme}    xpath=//*[@testval="plan.items[2].classification.scheme"][3]
+${locator.plan.items[2].classification.id}    xpath=//*[@testval="plan.items[2].classification.id"][3]
 
 
 
@@ -120,14 +136,292 @@ ${locator.plan.procuringEntity.name}    xpath=//*[@testval="plan.procuringEntity
 
     Run Keyword If  '${ARGUMENTS[0]}' == 'torgua_Owner'  Run Keyword And Ignore Error        Click Element    //*[@testval="accept"]
 
+#Створити тендер
+#    [Arguments]    @{ARGUMENTS}
+#    [Documentation]
+#    ...            ${ARGUMENTS[0]} ==    username
+#    ...            ${ARGUMENTS[1]} ==    tender_data
+#    ${title}=                 Get From Dictionary     ${ARGUMENTS[1].data}                             title
+#    ${description}=     Get From Dictionary     ${ARGUMENTS[1].data}                             description
+#    ${procurementMethodType}=     Convert To String        belowthreshold
+#
+#
+#    ${value_amount}=                Get From Dictionary     ${ARGUMENTS[1].data.value}                 amount
+#    ${value_amount}=                            Format         ${value_amount}
+#
+#    ${value_currency}=                Get From Dictionary     ${ARGUMENTS[1].data.value}                 currency
+#    ${minimalStep_amount}=         Get From Dictionary     ${ARGUMENTS[1].data.minimalStep}     amount
+#    ${minimalStep_amount}=         Convert To String         ${minimalStep_amount}
+#
+#    #${minimalStep_currency}=         Get From Dictionary     ${ARGUMENTS[1].data.minimalStep}     currency
+#    ${items}=                 Get From Dictionary     ${ARGUMENTS[1].data}                             items
+#    ${items_description}=     Get From Dictionary     ${items[0]}                 description
+#    ${items_unit_quantity}=     Get From Dictionary     ${items[0]}                 quantity
+#    ${items_unit_code}=     Get From Dictionary     ${items[0].unit}                 code
+#    #Період поставки товару (початкова дата)
+#    #${items_items_deliveryDate_startDate}=     Get From Dictionary     ${items[0].unit}                 code
+#    #Період поставки товару (кінцева дата)
+#    ${items_items_deliveryDate_startDate}=     Get From Dictionary     ${items[0].deliveryDate}                 startDate
+#    ${items_items_deliveryDate_startDate}=                Convert Date To String     ${items_items_deliveryDate_startDate}
+#
+#    ${items_items_deliveryDate_endDate}=     Get From Dictionary     ${items[0].deliveryDate}                 endDate
+#    ${items_items_deliveryDate_endDate}=                Convert Date To String     ${items_items_deliveryDate_endDate}
+#
+#    ${items_deliveryAddress_postalCode}=     Get From Dictionary     ${items[0].deliveryAddress}                 postalCode
+#    ${items_deliveryAddress_countryName}=     Get From Dictionary     ${items[0].deliveryAddress}                 countryName
+#    ${items_deliveryAddress_region}=     Get From Dictionary     ${items[0].deliveryAddress}                 region
+#    ${items_deliveryAddress_locality}=     Get From Dictionary     ${items[0].deliveryAddress}                 locality
+#    ${items_deliveryAddress_streetAddress}=     Get From Dictionary     ${items[0].deliveryAddress}                 streetAddress
+#
+#    ${items_deliveryLocation_latitude}=     Get From Dictionary     ${items[0].deliveryLocation}                 latitude
+#    ${items_deliveryLocation_latitude}=         Convert To Number         ${items_deliveryLocation_latitude}
+#    ${items_deliveryLocation_latitude}=         Format         ${items_deliveryLocation_latitude}
+#    ${items_deliveryLocation_longitude}=     Get From Dictionary     ${items[0].deliveryLocation}                 longitude
+#    ${items_deliveryLocation_longitude}=         Convert To Number         ${items_deliveryLocation_longitude}
+#    ${items_deliveryLocation_longitude}=         Format         ${items_deliveryLocation_longitude}
+#
+#    ${enquiryPeriod_startDate}=                Get From Dictionary        ${ARGUMENTS[1].data.enquiryPeriod}                 startDate
+#    ${enquiryPeriod_startDate}=                Convert Date To String     ${enquiryPeriod_startDate}
+#    ${enquiryPeriod_endDate}=                Get From Dictionary        ${ARGUMENTS[1].data.enquiryPeriod}                 endDate
+#    ${enquiryPeriod_endDate}=                Convert Date To String     ${enquiryPeriod_endDate}
+#
+#    ${tenderPeriod_startDate}=     Get From Dictionary        ${ARGUMENTS[1].data.tenderPeriod}                 startDate
+#    ${tenderPeriod_startDate}=                Convert Date To String     ${tenderPeriod_startDate}
+#    ${tenderPeriod_endDate}=     Get From Dictionary        ${ARGUMENTS[1].data.tenderPeriod}                 endDate
+#    ${tenderPeriod_endDate}=                Convert Date To String     ${tenderPeriod_endDate}
+#    #${quantity}=            Get From Dictionary     ${items[0]}                 quantity
+#    #${countryName}=     Get From Dictionary     ${ARGUMENTS[1].data.procuringEntity.address}             countryName
+#    #${delivery_end_date}=            Get From Dictionary     ${items[0].deliveryDate}     endDate
+#    #${delivery_end_date}=            convert_date_to_slash_format     ${delivery_end_date}
+#    ${cpv_id}=                Get From Dictionary     ${items[0].classification}                 id
+#    ${cpv_description}=                     Get From Dictionary     ${items[0].classification}                 description
+#
+#
+#	#${enquiry_end_date}=     Get From Dictionary                 ${ARGUMENTS[1].data.enquiryPeriod}     endDate
+#	#${enquiry_end_date}=     convert_date_to_slash_format     ${enquiry_end_date}
+#	#${end_date}=            Get From Dictionary     ${ARGUMENTS[1].data.tenderPeriod}     endDate
+#	#${end_date}=            convert_date_to_slash_format     ${end_date}
+#
+#    Змінити персональні дані        ${ARGUMENTS[1]}
+#
+#    Selenium2Library.Switch Browser         ${ARGUMENTS[0]}
+#
+#    #Wait Until Page Contains Element    id=content
+#
+#    Sleep    10
+#    Wait Until Page Contains Element    //*[@testval='myTenders']    timeout=100
+#    Click Element    xpath=//*[@testval='myTenders']
+#    Click Element    xpath=//*[text()='Додати закупівлю']
+#
+#    Click Element         //*[text()='Тип закупівлі']/following-sibling::div/div[1]/button
+#    Click Element         //*[@testval='${procurementMethodType}']
+#
+#    Input text                                                    //*[@testval="title"]        ${title}
+#    Input text                                                    //*[@testval="description"]        ${description}
+#
+#    Input text                                                    //*[@testval="value_amount"]     ${value_amount}
+#    Input text                                                    //*[@testval="minimalStep_amount"]     ${minimalStep_amount}
+#
+#    #Dates
+#    Input text                                                    //*[@testval="enquiryPeriod_startDate"]/descendant::input[1]     ${enquiryPeriod_startDate}
+#    Input text                                                    //*[@testval="enquiryPeriod_endDate"]/descendant::input[1]     ${enquiryPeriod_endDate}
+#
+#    Input text                                                    //*[@testval="tenderPeriod_startDate"]/descendant::input[1]     ${tenderPeriod_startDate}
+#    Input text                                                    //*[@testval="tenderPeriod_endDate"]/descendant::input[1]     ${tenderPeriod_endDate}
+#    #EndDates
+#
+#    Click Element                                             //*[@testval="btnadd"]
+#
+#    Input text                                                    //*[@testval="items_description"]        ${items_description}
+#    Click Element                                             //*[@testval="codeclassification"]
+#    #Debug
+#    Sleep    2
+#        Wait Until Page Contains Element    //*[@testval='searchclassification']    timeout=100
+#        Input text                                                 //*[@testval='searchclassification']        ${cpv_description}
+#        Click Element                                             //*[@testval='btnsearchclassification']
+#        Sleep    2
+#        Click Element                                             //*[@testval='${cpv_id}']
+#        Click Element                                             //*[@testval='btncheck']
+#
+#    # Select Код одиниці виміру (має відповідати стандарту UN/CEFACT, наприклад - KGM)
+#    #debug
+#    Click Element         //*[@testval="btn_unit_code"]/descendant::button[1]
+#    Click Element         //*[@testval='${items_unit_code}']
+#    #debug
+#    Input text                                                    //*[@testval="items_unit_quantity"]        ${items_unit_quantity}
+#
+#    Input text                                                    //*[@testval='items_deliveryAddress_postalCode']        ${items_deliveryAddress_postalCode}
+#    Input text                                                    //*[@testval='items_deliveryAddress_countryName']        ${items_deliveryAddress_countryName}
+#    Input text                                                    //*[@testval='items_deliveryAddress_region']        ${items_deliveryAddress_region}
+#    Input text                                                    //*[@testval='items_deliveryAddress_locality']        ${items_deliveryAddress_locality}
+#    Input text                                                    //*[@testval='items_deliveryAddress_streetAddress']     ${items_deliveryAddress_streetAddress}
+#    Input text                                                    //*[@testval='items_deliveryLocation_latitude']        ${items_deliveryLocation_latitude}
+#    Input text                                                    //*[@testval='items_deliveryLocation_longitude']        ${items_deliveryLocation_longitude}
+#
+#    Input text                                                    //*[@testval="items_items_deliveryDate_startDate"]/descendant::input[1]        ${items_items_deliveryDate_startDate}
+#    Input text                                                    //*[@testval="items_items_deliveryDate_endDate"]/descendant::input[1]        ${items_items_deliveryDate_endDate}
+#
+#    Click Element                                             //*[@testval='btnsave']
+#    Wait Until Page Contains Element    xpath= //*[@testval="btntenderkat"]    timeout=100
+#    Click Element                                             //*[@testval="btntenderkat"][1]
+#    Wait Until Page Contains Element    xpath= //*[@testval="btnaccept"]    timeout=100
+#    Click Element                                             //*[@testval="btnaccept"]
+#    #Execute Javascript                                 window.scroll(9999,9999)
+#    Sleep    30
+#
+#    ${tender_UAid}=    Get Text                     //*[@testval="tender_UAid"][1]
+#    #text()="${ARGUMENTS[1]['data']['title']}"]
+#    [return]    ${tender_UAid}
+
+
+
+
+
 Створити тендер
     [Arguments]    @{ARGUMENTS}
     [Documentation]
     ...            ${ARGUMENTS[0]} ==    username
     ...            ${ARGUMENTS[1]} ==    tender_data
+    ${procurementMethodType}=     Get From Dictionary     ${ARGUMENTS[1].data}                             procurementMethodType
+    ${tender_UAid}=    Run keyword if   '${procurementMethodType}'=='belowThreshold'    Допорогові закупівлі    ${ARGUMENTS}       ELSE IF    '${procurementMethodType}'=='reportAboutContract'   Звіт про укладений договір     ${ARGUMENTS}
+    [return]    ${tender_UAid}
+
+
+Звіт про укладений договір
+    [Arguments]    @{ARGUMENTS}
+    [Documentation]
+        ...            ${ARGUMENTS[0]} ==    username
+        ...            ${ARGUMENTS[1]} ==    tender_data
+
     ${title}=                 Get From Dictionary     ${ARGUMENTS[1].data}                             title
     ${description}=     Get From Dictionary     ${ARGUMENTS[1].data}                             description
-    ${procurementMethodType}=     Convert To String        belowthreshold
+    ${procurementMethodType}=     Get From Dictionary     ${ARGUMENTS[1].data}                             procurementMethodType
+
+
+    ${value_amount}=                Get From Dictionary     ${ARGUMENTS[1].data.value}                 amount
+    ${value_amount}=                            Format         ${value_amount}
+
+    ${value_currency}=                Get From Dictionary     ${ARGUMENTS[1].data.value}                 currency
+    ${items}=                 Get From Dictionary     ${ARGUMENTS[1].data}                             items
+    ${items_description}=     Get From Dictionary     ${items[0]}                 description
+    ${items_unit_quantity}=     Get From Dictionary     ${items[0]}                 quantity
+    ${items_unit_code}=     Get From Dictionary     ${items[0].unit}                 code
+    ${items_items_deliveryDate_startDate}=     Get From Dictionary     ${items[0].deliveryDate}                 startDate
+    ${items_items_deliveryDate_startDate}=                Convert Date To String     ${items_items_deliveryDate_startDate}
+
+    ${items_items_deliveryDate_endDate}=     Get From Dictionary     ${items[0].deliveryDate}                 endDate
+    ${items_items_deliveryDate_endDate}=                Convert Date To String     ${items_items_deliveryDate_endDate}
+
+    ${items_deliveryAddress_postalCode}=     Get From Dictionary     ${items[0].deliveryAddress}                 postalCode
+    ${items_deliveryAddress_countryName}=     Get From Dictionary     ${items[0].deliveryAddress}                 countryName
+    ${items_deliveryAddress_region}=     Get From Dictionary     ${items[0].deliveryAddress}                 region
+    ${items_deliveryAddress_locality}=     Get From Dictionary     ${items[0].deliveryAddress}                 locality
+    ${items_deliveryAddress_streetAddress}=     Get From Dictionary     ${items[0].deliveryAddress}                 streetAddress
+
+    ${items_deliveryLocation_latitude}=     Get From Dictionary     ${items[0].deliveryLocation}                 latitude
+    ${items_deliveryLocation_latitude}=         Convert To Number         ${items_deliveryLocation_latitude}
+    ${items_deliveryLocation_latitude}=         Format         ${items_deliveryLocation_latitude}
+    ${items_deliveryLocation_longitude}=     Get From Dictionary     ${items[0].deliveryLocation}                 longitude
+    ${items_deliveryLocation_longitude}=         Convert To Number         ${items_deliveryLocation_longitude}
+    ${items_deliveryLocation_longitude}=         Format         ${items_deliveryLocation_longitude}
+
+    ${enquiryPeriod_startDate}=                Get From Dictionary        ${ARGUMENTS[1].data.enquiryPeriod}                 startDate
+    ${enquiryPeriod_startDate}=                Convert Date To String     ${enquiryPeriod_startDate}
+    ${enquiryPeriod_endDate}=                Get From Dictionary        ${ARGUMENTS[1].data.enquiryPeriod}                 endDate
+    ${enquiryPeriod_endDate}=                Convert Date To String     ${enquiryPeriod_endDate}
+
+    ${tenderPeriod_startDate}=     Get From Dictionary        ${ARGUMENTS[1].data.tenderPeriod}                 startDate
+    ${tenderPeriod_startDate}=                Convert Date To String     ${tenderPeriod_startDate}
+    ${tenderPeriod_endDate}=     Get From Dictionary        ${ARGUMENTS[1].data.tenderPeriod}                 endDate
+    ${tenderPeriod_endDate}=                Convert Date To String     ${tenderPeriod_endDate}
+    ${cpv_id}=                Get From Dictionary     ${items[0].classification}                 id
+    ${cpv_description}=                     Get From Dictionary     ${items[0].classification}                 description
+
+
+    Змінити персональні дані        ${ARGUMENTS[1]}
+
+    Selenium2Library.Switch Browser         ${ARGUMENTS[0]}
+
+    #Wait Until Page Contains Element    id=content
+
+    Sleep    10
+    Wait Until Page Contains Element    //*[@testval='myTenders']    timeout=100
+    Click Element    xpath=//*[@testval='myTenders']
+    Click Element    xpath=//*[text()='Додати закупівлю']
+
+    Click Element         //*[text()='Тип закупівлі']/following-sibling::div/div[1]/button
+    Click Element         //*[@testval='${procurementMethodType}']
+
+    Input text                                                    //*[@testval="title"]        ${title}
+    Input text                                                    //*[@testval="description"]        ${description}
+
+    Input text                                                    //*[@testval="value_amount"]     ${value_amount}
+#    Input text                                                    //*[@testval="minimalStep_amount"]     ${minimalStep_amount}
+
+    #Dates
+    Input text                                                    //*[@testval="enquiryPeriod_startDate"]/descendant::input[1]     ${enquiryPeriod_startDate}
+    Input text                                                    //*[@testval="enquiryPeriod_endDate"]/descendant::input[1]     ${enquiryPeriod_endDate}
+
+    Input text                                                    //*[@testval="tenderPeriod_startDate"]/descendant::input[1]     ${tenderPeriod_startDate}
+    Input text                                                    //*[@testval="tenderPeriod_endDate"]/descendant::input[1]     ${tenderPeriod_endDate}
+    #EndDates
+
+    Click Element                                             //*[@testval="btnadd"]
+
+    Input text                                                    //*[@testval="items_description"]        ${items_description}
+    Click Element                                             //*[@testval="codeclassification"]
+    #Debug
+    Sleep    2
+        Wait Until Page Contains Element    //*[@testval='searchclassification']    timeout=100
+        Input text                                                 //*[@testval='searchclassification']        ${cpv_description}
+        Click Element                                             //*[@testval='btnsearchclassification']
+        Sleep    2
+        Click Element                                             //*[@testval='${cpv_id}']
+        Click Element                                             //*[@testval='btncheck']
+
+    # Select Код одиниці виміру (має відповідати стандарту UN/CEFACT, наприклад - KGM)
+    #debug
+    Click Element         //*[@testval="btn_unit_code"]/descendant::button[1]
+    Click Element         //*[@testval='${items_unit_code}']
+    #debug
+    Input text                                                    //*[@testval="items_unit_quantity"]        ${items_unit_quantity}
+
+    Input text                                                    //*[@testval='items_deliveryAddress_postalCode']        ${items_deliveryAddress_postalCode}
+    Input text                                                    //*[@testval='items_deliveryAddress_countryName']        ${items_deliveryAddress_countryName}
+    Input text                                                    //*[@testval='items_deliveryAddress_region']        ${items_deliveryAddress_region}
+    Input text                                                    //*[@testval='items_deliveryAddress_locality']        ${items_deliveryAddress_locality}
+    Input text                                                    //*[@testval='items_deliveryAddress_streetAddress']     ${items_deliveryAddress_streetAddress}
+    Input text                                                    //*[@testval='items_deliveryLocation_latitude']        ${items_deliveryLocation_latitude}
+    Input text                                                    //*[@testval='items_deliveryLocation_longitude']        ${items_deliveryLocation_longitude}
+
+    Input text                                                    //*[@testval="items_items_deliveryDate_startDate"]/descendant::input[1]        ${items_items_deliveryDate_startDate}
+    Input text                                                    //*[@testval="items_items_deliveryDate_endDate"]/descendant::input[1]        ${items_items_deliveryDate_endDate}
+
+    Click Element                                             //*[@testval='btnsave']
+    Wait Until Page Contains Element    xpath= //*[@testval="btntenderkat"]    timeout=100
+    Click Element                                             //*[@testval="btntenderkat"][1]
+    Wait Until Page Contains Element    xpath= //*[@testval="btnaccept"]    timeout=100
+    Click Element                                             //*[@testval="btnaccept"]
+    #Execute Javascript                                 window.scroll(9999,9999)
+    Sleep    30
+
+    ${tender_UAid}=    Get Text                     //*[@testval="tender_UAid"][1]
+    #text()="${ARGUMENTS[1]['data']['title']}"]
+    [return]    ${tender_UAid}
+
+
+
+
+
+Допорогові закупівлі
+    [Arguments]    @{ARGUMENTS}
+    [Documentation]
+        ...            ${ARGUMENTS[0]} ==    username
+        ...            ${ARGUMENTS[1]} ==    tender_data
+
+    ${title}=                 Get From Dictionary     ${ARGUMENTS[1].data}                             title
+    ${description}=     Get From Dictionary     ${ARGUMENTS[1].data}                             description
+    ${procurementMethodType}=     Get From Dictionary     ${ARGUMENTS[1].data}                             procurementMethodType
 
 
     ${value_amount}=                Get From Dictionary     ${ARGUMENTS[1].data.value}                 amount
@@ -256,6 +550,9 @@ ${locator.plan.procuringEntity.name}    xpath=//*[@testval="plan.procuringEntity
     ${tender_UAid}=    Get Text                     //*[@testval="tender_UAid"][1]
     #text()="${ARGUMENTS[1]['data']['title']}"]
     [return]    ${tender_UAid}
+
+
+
 
 Завантажити документ
     [Arguments]    @{ARGUMENTS}
@@ -1006,11 +1303,17 @@ MyClick Element
     Selenium2Library.Switch Browser         ${ARGUMENTS[0]}
 
     Sleep    10
+    #Click Element    xpath=//a[contains(@href,'signin')]
     Wait Until Page Contains Element    //*[@testval='myPlans']    timeout=100
     MyClick Element    'myPlans'
     MyClick Element    'btnCreatePlan'
 
     MyClick Element         'procurementMethodType'
+
+
+
+#    Run keyword if  '${ARGUMENTS[1]}' == 'value.amount'      отримати інформацію із пропозиції про  value.amount   ELSE   Отримати Інформацію Про ${ARGUMENTS[1]}
+#    Run keyword if  '${ARGUMENTS[1]}' == 'value.amount'      отримати інформацію із пропозиції про  value.amount   ELSE   Отримати Інформацію Про ${ARGUMENTS[1]}
     MyClick Element         '${procurementMethodType}'
 
     Input text    //*[@testval="budget_description"]        ${budget_description}
@@ -1037,7 +1340,7 @@ MyClick Element
     Input text                                                    //*[@testval="items_description"]        ${items_description}
 
     #Item classification
-    Click Element                                             //*[@testval="codeclassification"][2]
+    Click Element                                               //*[@testval="codeclassification"][2]
     Sleep    2
     Wait Until Page Contains Element    //*[@testval='searchclassification']    timeout=100
     Input text                                                 //*[@testval='searchclassification']        ${cpv_description}
@@ -1156,10 +1459,20 @@ MyClick Element
     [return]    ${result}
 
 
+#Отримати ітемси
+#    ${items}=    Get From Dictionary    ${tender_data.data}    items
+#    ${item}=    Get From List    ${items}    0
+#    : FOR    ${en}    IN    @{items}
+#
+#    [return]    ${items}
+
 
 Отримати інформацію про план items[0].description
-         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].description
-         [return]    ${result}
+        ${items}=    Get From Dictionary    ${tender_data.data}    items
+        ${item}=    Get From List    ${items}    0
+        : FOR    ${en}    IN    @{items}
+            ${result}=     Отримати текст із поля і показати на сторінці  ${en} description
+            [return]    ${result}
 
 Отримати інформацію про план items[0].quantity
          ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].quantity
@@ -1168,7 +1481,7 @@ MyClick Element
 
 Отримати інформацію про план items[0].deliveryDate.endDate
          ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].deliveryDate.endDate
-         ${result}=     parse_date  ${result}
+         ${result}=     subtract_from_time  ${result}
 
 Отримати інформацію про план items[0].unit.code
          ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].unit.code
@@ -1192,9 +1505,11 @@ MyClick Element
 
 
 
+
 Отримати інформацію про план items[1].description
          ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].description
          [return]    ${result}
+
 
 Отримати інформацію про план items[1].quantity
          ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].quantity
@@ -1206,21 +1521,60 @@ MyClick Element
          ${result}=     parse_date  ${result}
 
 Отримати інформацію про план items[1].unit.code
-         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].unit.code
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[1].unit.code
          [return]    ${result}
 
 Отримати інформацію про план items[1].unit.name
-         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].unit.name
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[1].unit.name
          [return]    ${result}
 
 Отримати інформацію про план items[1].classification.description
-         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].classification.description
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[1].classification.description
          [return]    ${result}
 
 Отримати інформацію про план items[1].classification.scheme
-         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].classification.scheme
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[1].classification.scheme
          [return]    ${result}
 
 Отримати інформацію про план items[1].classification.id
-         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[0].classification.id
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[1].classification.id
          [return]    ${result}
+
+
+
+
+
+
+Отримати інформацію про план items[2].description
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[2].description
+         [return]    ${result}
+
+Отримати інформацію про план items[2].quantity
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[2].quantity
+         ${result} =    Convert To Integer  ${result}
+         [return]    ${result}
+
+Отримати інформацію про план items[2].deliveryDate.endDate
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[2].deliveryDate.endDate
+         ${result}=     parse_date  ${result}
+
+Отримати інформацію про план items[2].unit.code
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[2].unit.code
+         [return]    ${result}
+
+Отримати інформацію про план items[2].unit.name
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[2].unit.name
+         [return]    ${result}
+
+Отримати інформацію про план items[2].classification.description
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[2].classification.description
+         [return]    ${result}
+
+Отримати інформацію про план items[2].classification.scheme
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[2].classification.scheme
+         [return]    ${result}
+
+Отримати інформацію про план items[2].classification.id
+         ${result}=     Отримати текст із поля і показати на сторінці     plan.items[2].classification.id
+         [return]    ${result}
+

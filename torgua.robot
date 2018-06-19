@@ -851,6 +851,7 @@ ${locator.plan.items[2].classification.id}    xpath=//*[@testval="plan.items[2].
     ...            ${ARGUMENTS[1]} ==    tenderId
     ...            ${ARGUMENTS[2]} ==    action
     Go To    ${USERS.users['${ARGUMENTS[0]}'].homepage}
+    Click Element    xpath=//a[contains(@href,'signin')]
     Wait Until Page Contains Element    xpath=//*[@testval='btnProfile']    timeout=100
     Click Element                                             //*[@testval='btnProfile']
     Wait Until Page Contains Element    xpath=//*[@testval='myTenders']    timeout=100
@@ -1340,6 +1341,7 @@ MyClick Element
     Input text                                                    //*[@testval="items_description"]        ${items_description}
 
     #Item classification
+    Sleep    2
     Click Element                                               //*[@testval="codeclassification"][2]
     Sleep    2
     Wait Until Page Contains Element    //*[@testval='searchclassification']    timeout=100

@@ -112,9 +112,8 @@ ${locator.plan.items[2].classification.id}    xpath=//*[@testval="plan.items[2].
 *** Keywords ***
 
 Підготувати дані для оголошення тендера
-    [Arguments]    @{ARGUMENTS}
-    Log Many    @{ARGUMENTS}
-    [return]    ${ARGUMENTS[1]}
+     [Arguments]  ${username}  ${tender_data}  ${role_name}
+     [return]  ${tender_data}
 
 Підготувати клієнт для користувача
     [Arguments]    @{ARGUMENTS}
@@ -241,12 +240,14 @@ ${locator.plan.items[2].classification.id}    xpath=//*[@testval="plan.items[2].
         Input text                                                 //*[@testval='searchclassification']        ${cpv_description}
         Click Element                                             //*[@testval='btnsearchclassification']
         Sleep    2
-        Click Element                                             //*[@testval='${cpv_id}']
+        Select Checkbox                                             //*[@testval='${cpv_id}']
         Click Element                                             //*[@testval='btncheck']
 
     # Select Код одиниці виміру (має відповідати стандарту UN/CEFACT, наприклад - KGM)
     #debug
+    Sleep 2
     Click Element         //*[@testval="btn_unit_code"]/descendant::button[1]
+    Sleep 2
     Click Element         //*[@testval='${items_unit_code}']
     #debug
     Input text                                                    //*[@testval="items_unit_quantity"]        ${items_unit_quantity}
@@ -379,12 +380,14 @@ ${locator.plan.items[2].classification.id}    xpath=//*[@testval="plan.items[2].
         Input text                                                 //*[@testval='searchclassification']        ${cpv_description}
         Click Element                                             //*[@testval='btnsearchclassification']
         Sleep    2
-        Click Element                                             //*[@testval='${cpv_id}']
+        Select Checkbox                                             //*[@testval='${cpv_id}']
         Click Element                                             //*[@testval='btncheck']
 
     # Select Код одиниці виміру (має відповідати стандарту UN/CEFACT, наприклад - KGM)
     #debug
+    Sleep    2
     Click Element         //*[@testval="btn_unit_code"]/descendant::button[1]
+    Sleep    2
     Click Element         //*[@testval='${items_unit_code}']
     #debug
     Input text                                                    //*[@testval="items_unit_quantity"]        ${items_unit_quantity}

@@ -708,7 +708,7 @@ users:
         size:     [1100, 5000]
     torgua_Owner:
         broker:   torgua
-        homepage: "https://torgua.com"
+        homepage: "http://192.168.88.130:3000/"
         login:    prozorroqa1@carbtc.net
         password: ExKCBf32
         browser:  firefox
